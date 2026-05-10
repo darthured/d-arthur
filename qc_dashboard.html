@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SSN Projects — QC Schedule</title>
+  <title>d-arthur — QC Schedule</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -314,7 +314,7 @@
 
 <div class="header">
   <div class="header-left">
-    <h1>SSN Projects — QC Schedule</h1>
+    <h1>d-arthur — QC Schedule</h1>
     <div class="subtitle">Factory quality control inspections overview</div>
   </div>
   <div class="header-right">
@@ -349,7 +349,7 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Wednesday, 6 May 2026";
+const GENERATED = "Sunday, 10 May 2026";
 
 const jobs = [
   {
@@ -359,8 +359,8 @@ const jobs = [
     "name": "COSTRUCT (ORIA) GUANGZHOU YIZHENG - LIGHT FITTINGS (2nd Batch)",
     "dateStr": "15 May 2026",
     "dateISO": "2026-05-15",
-    "dateChanged": true,
-    "oldDate": "9 May 2026",
+    "dateChanged": false,
+    "oldDate": "",
     "notes": "Delayed to 15 May at factory's request to improve the SL-01 cover polish finish."
   },
   {
@@ -370,9 +370,9 @@ const jobs = [
     "name": "KEYLIN (SERENITY) - HONGSHIDA (TAPWARE) - LGF-L4",
     "dateStr": "16 May 2026",
     "dateISO": "2026-05-16",
-    "dateChanged": true,
-    "oldDate": "10 May 2026",
-    "notes": "Date moved to 16 May; cargo not urgent, factory given additional production time to ensure quality. Not yet added to Nifty \u2014 follow up."
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "Not yet added to Nifty \u2014 follow up."
   },
   {
     "id": "QOJ-47/RAW",
@@ -383,18 +383,18 @@ const jobs = [
     "dateISO": "2026-05-08",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Delayed from April due to incorrect factory information and May holiday (1\u20135 May). QC scheduled around 8 May; date to be confirmed 1\u20132 days in advance."
+    "notes": "QC scheduled around 8 May. Nifty flags this job to be split into a separate job \u2014 follow up."
   },
   {
     "id": "QOJ-97/H",
     "supplier": "Kejian",
     "status": "TBC",
-    "name": "COSTRUCT (ORIA) - YUEXING METAL - Kejian Screens SC01, SC04 & SC05 (Aluminium Screens, Gate & Doors, B2-GF & Roof)",
-    "dateStr": "13 May 2026",
-    "dateISO": "2026-05-13",
+    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - SC01 (10 sets), SC04 (11 sets) & SC05 (3 sets) (Aluminium Screens, Gate & Doors, B2-GF & Roof)",
+    "dateStr": "8 May 2026",
+    "dateISO": "2026-05-08",
     "dateChanged": true,
-    "oldDate": "8 May 2026",
-    "notes": "Date revised to 13 May; scope being divided into two jobs with further items still to be confirmed. Progress has been slow \u2014 additional job numbers to be assigned."
+    "oldDate": "13 May 2026",
+    "notes": "Calendar shows 8 May. Scope split into QOJ-97/I and QOJ-97/K \u2014 see below. Nifty QC date 12 May; following calendar. Confirm with Kelvin."
   },
   {
     "id": "QOJ-47/C",
@@ -405,7 +405,7 @@ const jobs = [
     "dateISO": "2026-05-16",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Factory update (22 Apr): estimated completion approx. 15\u201320 May."
+    "notes": "Calendar 16 May. Note: Nifty references QC date 11 May \u2014 following calendar."
   },
   {
     "id": "QOJ-23/F",
@@ -433,12 +433,12 @@ const jobs = [
     "id": "QOJ-162/A",
     "supplier": "Kejian",
     "status": "TBC",
-    "name": "MQ2 - YUEXING METAL BALUSTRADES",
+    "name": "MQ2 - YUEXING METAL BALUSTRADES (L7)",
     "dateStr": "29 May 2026",
     "dateISO": "2026-05-29",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Approximate date \u2014 drawings still being finalised."
+    "notes": "Calendar 29 May. Nifty references QC date 8 May \u2014 following calendar."
   },
   {
     "id": "QOJ-87/N",
@@ -449,7 +449,40 @@ const jobs = [
     "dateISO": "2026-06-06",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Approximate date \u2014 to be confirmed once QOJ-87/RAW(2) schedule is set."
+    "notes": "\u26a0\ufe0f URGENT: Nifty flags *MUST* QC by 20 May 2026 (S1090) but calendar shows 6 Jun \u2014 significant discrepancy, follow up immediately."
+  },
+  {
+    "id": "QOJ-97/I",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - Roof SC01 DY-18-1 (Split from QOJ-97/H)",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "New split job from QOJ-97/H. Nifty QC date 15 May 2026 (S1145); sharing shipment S1129 with QOJ-97/H. No calendar event yet \u2014 follow up."
+  },
+  {
+    "id": "QOJ-97/K",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - B1 SC01 & GF SC04 Aluminium Screening & Gate (Split from QOJ-97/H)",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "New split job from QOJ-97/H. QC TBA per Nifty. No calendar event yet \u2014 follow up."
+  },
+  {
+    "id": "QOJ-97/L",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN BALUSTRADES - L17 Pool Level",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "New job in Nifty (S1146). QC TBA. No calendar event yet."
   },
   {
     "id": "QOJ-87/P",
@@ -460,7 +493,7 @@ const jobs = [
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": ""
+    "notes": "\u26a0\ufe0f Nifty flags *MUST* QC by 30 May 2026. No calendar event yet \u2014 follow up urgently."
   },
   {
     "id": "QOJ-162/B",
@@ -515,7 +548,7 @@ const jobs = [
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty (QC SCH approx. 27\u201330 May 2026). No calendar event yet \u2014 follow up to confirm date with factory."
+    "notes": "Not found in current Nifty export \u2014 verify status. Previously noted QC approx. 27\u201330 May 2026."
   },
   {
     "id": "QOJ-190/RAW",
@@ -526,7 +559,7 @@ const jobs = [
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty (QC TBA). No calendar event yet \u2014 follow up with factory for inspection schedule."
+    "notes": "In Nifty (QC TBA). No calendar event yet \u2014 follow up with factory."
   },
   {
     "id": "QOJ-18/H",
@@ -537,7 +570,7 @@ const jobs = [
     "dateISO": "2026-05-06",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "QC on 6 May."
+    "notes": "QC 6 May \u2014 completed."
   },
   {
     "id": "QOJ-18/J",
