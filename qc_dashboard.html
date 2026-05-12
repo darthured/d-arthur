@@ -349,7 +349,7 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Tuesday, 12 May 2026";
+const GENERATED = "Wednesday, 13 May 2026";
 
 const jobs = [
   {
@@ -361,7 +361,7 @@ const jobs = [
     "dateISO": "2026-05-14",
     "dateChanged": true,
     "oldDate": "16 May 2026",
-    "notes": "Confirmed 14 May (updated 11 May). Nifty shows 16 May; following calendar."
+    "notes": "Confirmed 14 May (updated 11 May). Nifty updated to match."
   },
   {
     "id": "QOJ-97/H",
@@ -427,7 +427,7 @@ const jobs = [
     "dateISO": "2026-05-25",
     "dateChanged": true,
     "oldDate": "6 Jun 2026",
-    "notes": "Date updated to 25 May by factory (11 May). \u26a0\ufe0f Nifty flags *MUST* QC by 20 May (S1090) \u2014 discrepancy, follow up. Note: QOJ-87/Q (Business Centre Glazing) scope merged into this job."
+    "notes": "Date updated to 25 May by factory (11 May). Nifty updated to match \u2014 *MUST* QC flag resolved. Note: QOJ-87Q (Business Centre Glazing) scope merged into this job."
   },
   {
     "id": "QOJ-87/P",
@@ -438,7 +438,7 @@ const jobs = [
     "dateISO": "2026-05-30",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Date 30 May per client schedule \u2014 no factory confirmation yet, follow up. \u26a0\ufe0f Nifty flags *MUST* QC by 30 May \u2014 date matches, confirm with factory. Note: QOJ-87/R (Entry Glazing) scope merged into this job."
+    "notes": "30 May per client schedule. Nifty updated to match. \u26a0\ufe0f *MUST* QC flag \u2014 confirm with factory. Note: QOJ-87R (Entry Glazing) scope merged into this job."
   },
   {
     "id": "QOJ-97/K",
@@ -449,7 +449,7 @@ const jobs = [
     "dateISO": "2026-05-29",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Date 29 May per client schedule \u2014 clear update expected after QOJ-97/H QC on 15 May (updated 12 May)."
+    "notes": "29 May per client schedule. Nifty updated to match. Clear update expected after QOJ-97H QC on 15 May."
   },
   {
     "id": "QOJ-162/A",
@@ -460,7 +460,7 @@ const jobs = [
     "dateISO": "2026-06-01",
     "dateChanged": true,
     "oldDate": "29 May 2026",
-    "notes": "Estimate only \u2014 no factory confirmation yet (updated 27 Apr). Nifty shows 8 May; following calendar at 1 Jun."
+    "notes": "1 Jun estimate. Nifty updated to match \u2014 previously showed 8 May."
   },
   {
     "id": "QOJ-23/G",
@@ -649,12 +649,15 @@ function statusBadge(s) {
 }
 
 // ── Band config ───────────────────────────────────────────────────────────────
+function fmtBand(d) {
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
 const bands = [
   { key: "completed", label: "Recently Completed", cls: "band-completed" },
-  { key: "thisweek",  label: "This Week  (22–26 Apr)", cls: "band-thisweek" },
-  { key: "nextweek",  label: "Next Week  (27 Apr – 3 May)", cls: "band-nextweek" },
-  { key: "30days",    label: "Within 30 Days  (4–22 May)", cls: "band-30days" },
-  { key: "beyond",    label: "Further Out  (23 May+)", cls: "band-beyond" },
+  { key: "thisweek",  label: `This Week  (${fmtBand(thisWeekStart)}–${fmtBand(thisWeekEnd)})`, cls: "band-thisweek" },
+  { key: "nextweek",  label: `Next Week  (${fmtBand(nextWeekStart)}–${fmtBand(nextWeekEnd)})`, cls: "band-nextweek" },
+  { key: "30days",    label: `Within 30 Days  (${fmtBand(addDays(thisWeekEnd, 1))}–${fmtBand(in30days)})`, cls: "band-30days" },
+  { key: "beyond",    label: `Further Out  (${fmtBand(addDays(in30days, 1))}+)`, cls: "band-beyond" },
   { key: "tba",       label: "TBA — Date Not Yet Set", cls: "band-tba" },
 ];
 
