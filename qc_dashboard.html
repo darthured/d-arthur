@@ -349,195 +349,118 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Sunday, 10 May 2026";
+const GENERATED = "Tuesday, 12 May 2026";
 
 const jobs = [
+  {
+    "id": "QOJ-47/C",
+    "supplier": "Kejian",
+    "status": "Confirmed",
+    "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L9-L10 AW/FW/SD",
+    "dateStr": "14 May 2026",
+    "dateISO": "2026-05-14",
+    "dateChanged": true,
+    "oldDate": "16 May 2026",
+    "notes": "Confirmed 14 May (updated 11 May). Nifty shows 16 May; following calendar."
+  },
+  {
+    "id": "QOJ-97/H",
+    "supplier": "Kejian",
+    "status": "Confirmed",
+    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - B1 SC01 DY-04-1 (2 sets) + GF SC01 DY-06-01/05/06 (3 sets) + Roof SC01 DY-17a/b-1 (2 sets) + DY-18-1 (1 set) \u2014 Aluminium Screening + Doors",
+    "dateStr": "15 May 2026",
+    "dateISO": "2026-05-15",
+    "dateChanged": true,
+    "oldDate": "8 May 2026",
+    "notes": "Confirmed 15 May (updated 11 May). Full scope now includes DY-18-1 \u2014 QOJ-97/I has been merged into this job."
+  },
   {
     "id": "QOJ-282/B",
     "supplier": "Kejian",
     "status": "Confirmed",
-    "name": "COSTRUCT (ORIA) GUANGZHOU YIZHENG - LIGHT FITTINGS (2nd Batch)",
-    "dateStr": "15 May 2026",
-    "dateISO": "2026-05-15",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Delayed to 15 May at factory's request to improve the SL-01 cover polish finish."
+    "name": "COSTRUCT (ORIA) - GUANGZHOU YIZHEN - LIGHT FITTINGS (2nd Batch)",
+    "dateStr": "19 May 2026",
+    "dateISO": "2026-05-19",
+    "dateChanged": true,
+    "oldDate": "15 May 2026",
+    "notes": "Delayed to 19 May \u2014 factory needs additional time for SL-01 cover polish finish (updated 11 May). Nifty shows 9 May; following calendar."
   },
   {
     "id": "QOJ-304A",
     "supplier": "Kejian",
-    "status": "Not in Nifty",
+    "status": "Confirmed",
     "name": "KEYLIN (SERENITY) - HONGSHIDA (TAPWARE) - LGF-L4",
     "dateStr": "16 May 2026",
     "dateISO": "2026-05-16",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Not yet added to Nifty \u2014 follow up."
+    "notes": "QC 16 May. Date extended to allow factory additional time for better quality (updated 6 May). Tagged HSD in Nifty."
+  },
+  {
+    "id": "QOJ-23/F",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "SIERA TAPESTRY - BROAD WINDOWS - GF & L19 & ROOF & S/M",
+    "dateStr": "23 May 2026",
+    "dateISO": "2026-05-23",
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "Date approx. 23 May \u2014 to confirm in week 18 (updated 12 May). Nifty shows 13 May; following calendar."
   },
   {
     "id": "QOJ-47/RAW",
     "supplier": "Kejian",
     "status": "TBC",
     "name": "(L11-L16) - SUNBUILT (MQ2) - KEJIAN WINDOWS - Full Length Profiles (Non-Cutted)",
-    "dateStr": "8 May 2026",
-    "dateISO": "2026-05-08",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "QC scheduled around 8 May. Nifty flags this job to be split into a separate job \u2014 follow up."
-  },
-  {
-    "id": "QOJ-97/H",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - SC01 (10 sets), SC04 (11 sets) & SC05 (3 sets) (Aluminium Screens, Gate & Doors, B2-GF & Roof)",
-    "dateStr": "8 May 2026",
-    "dateISO": "2026-05-08",
+    "dateStr": "22 May 2026",
+    "dateISO": "2026-05-22",
     "dateChanged": true,
-    "oldDate": "13 May 2026",
-    "notes": "Calendar shows 8 May. Scope split into QOJ-97/I and QOJ-97/K \u2014 see below. Nifty QC date 12 May; following calendar. Confirm with Kelvin."
+    "oldDate": "8 May 2026",
+    "notes": "Factory confirmed 22 May \u2014 almost confirmed, minimal change expected (updated 12 May). \u26a0\ufe0f Nifty flags this job to be split into a separate job \u2014 follow up."
   },
   {
-    "id": "QOJ-47/C",
+    "id": "QOJ-87/N",
     "supplier": "Kejian",
     "status": "TBC",
-    "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L9-L10 AW/FW/SD",
-    "dateStr": "16 May 2026",
-    "dateISO": "2026-05-16",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Calendar 16 May. Note: Nifty references QC date 11 May \u2014 following calendar."
-  },
-  {
-    "id": "QOJ-23/F",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "Siera Tapestry Broad Window GF & LF19 & ROOF & S/M QC",
-    "dateStr": "23 May 2026",
-    "dateISO": "2026-05-23",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Approximate date \u2014 to be confirmed closer to the time."
-  },
-  {
-    "id": "QOJ-87/RAW(2)",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN RAW MATERIALS - L16-L17",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L16 (Penthouse) Windows/Doors + Business Centre Glazing",
     "dateStr": "25 May 2026",
     "dateISO": "2026-05-25",
+    "dateChanged": true,
+    "oldDate": "6 Jun 2026",
+    "notes": "Date updated to 25 May by factory (11 May). \u26a0\ufe0f Nifty flags *MUST* QC by 20 May (S1090) \u2014 discrepancy, follow up. Note: QOJ-87/Q (Business Centre Glazing) scope merged into this job."
+  },
+  {
+    "id": "QOJ-87/P",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 (Penthouse) Windows/Doors + Entry Glazing",
+    "dateStr": "30 May 2026",
+    "dateISO": "2026-05-30",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Approximate date \u2014 no confirmed factory schedule yet."
+    "notes": "Date 30 May per client schedule \u2014 no factory confirmation yet, follow up. \u26a0\ufe0f Nifty flags *MUST* QC by 30 May \u2014 date matches, confirm with factory. Note: QOJ-87/R (Entry Glazing) scope merged into this job."
+  },
+  {
+    "id": "QOJ-97/K",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - B1 SC01 DY-05-02/03 (5 sets) + GF SC04 DY-07-01 (1 set) + DY-08-02/03/04 (5 sets) \u2014 Aluminium Screening + Gate",
+    "dateStr": "29 May 2026",
+    "dateISO": "2026-05-29",
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "Date 29 May per client schedule \u2014 clear update expected after QOJ-97/H QC on 15 May (updated 12 May)."
   },
   {
     "id": "QOJ-162/A",
     "supplier": "Kejian",
     "status": "TBC",
     "name": "MQ2 - YUEXING METAL BALUSTRADES (L7)",
-    "dateStr": "29 May 2026",
-    "dateISO": "2026-05-29",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Calendar 29 May. Nifty references QC date 8 May \u2014 following calendar."
-  },
-  {
-    "id": "QOJ-87/N",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L16 (Penthouse) Windows/Doors",
-    "dateStr": "6 Jun 2026",
-    "dateISO": "2026-06-06",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "\u26a0\ufe0f URGENT: Nifty flags *MUST* QC by 20 May 2026 (S1090) but calendar shows 6 Jun \u2014 significant discrepancy, follow up immediately."
-  },
-  {
-    "id": "QOJ-97/I",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - Roof SC01 DY-18-1 (Split from QOJ-97/H)",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "New split job from QOJ-97/H. Nifty QC date 15 May 2026 (S1145); sharing shipment S1129 with QOJ-97/H. No calendar event yet \u2014 follow up."
-  },
-  {
-    "id": "QOJ-97/K",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN SCREENS - B1 SC01 & GF SC04 Aluminium Screening & Gate (Split from QOJ-97/H)",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "New split job from QOJ-97/H. QC TBA per Nifty. No calendar event yet \u2014 follow up."
-  },
-  {
-    "id": "QOJ-97/L",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN BALUSTRADES - L17 Pool Level",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "New job in Nifty (S1146). QC TBA. No calendar event yet."
-  },
-  {
-    "id": "QOJ-87/P",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 (Penthouse) Windows/Doors",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "\u26a0\ufe0f Nifty flags *MUST* QC by 30 May 2026. No calendar event yet \u2014 follow up urgently."
-  },
-  {
-    "id": "QOJ-162/B",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "MQ2 - KEJIAN (BALUSTRADES - L8-L31 TBC)",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": ""
-  },
-  {
-    "id": "QOJ-87/Q",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - Business Centre Glazing",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": ""
-  },
-  {
-    "id": "QOJ-87/R",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - Entry Glazing",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": ""
-  },
-  {
-    "id": "QOJ-190A",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - LGF",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Factory ready date approx. 5 Jun 2026."
+    "dateStr": "1 Jun 2026",
+    "dateISO": "2026-06-01",
+    "dateChanged": true,
+    "oldDate": "29 May 2026",
+    "notes": "Estimate only \u2014 no factory confirmation yet (updated 27 Apr). Nifty shows 8 May; following calendar at 1 Jun."
   },
   {
     "id": "QOJ-23/G",
@@ -551,6 +474,39 @@ const jobs = [
     "notes": "Not found in current Nifty export \u2014 verify status. Previously noted QC approx. 27\u201330 May 2026."
   },
   {
+    "id": "QOJ-87/Q",
+    "supplier": "Kejian",
+    "status": "Not in Nifty",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - Re-Use Job",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "Removed from current Nifty export. Re-use job; scope merged into QOJ-87/N \u2014 verify with factory."
+  },
+  {
+    "id": "QOJ-97/L",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN BALUSTRADES - L17 Pool Level",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "In Nifty (S1146). QC TBA \u2014 no calendar event yet."
+  },
+  {
+    "id": "QOJ-162/B",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "MQ2 - KEJIAN BALUSTRADES (L8-L31 TBC)",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": ""
+  },
+  {
     "id": "QOJ-190/RAW",
     "supplier": "Kejian",
     "status": "TBC",
@@ -562,26 +518,37 @@ const jobs = [
     "notes": "In Nifty (QC TBA). No calendar event yet \u2014 follow up with factory."
   },
   {
-    "id": "QOJ-18/H",
-    "supplier": "Brun Joinery",
-    "status": "Confirmed",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (L12)",
-    "dateStr": "6 May 2026",
-    "dateISO": "2026-05-06",
+    "id": "QOJ-190/A",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - LGF",
+    "dateStr": "TBA",
+    "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "QC 6 May \u2014 completed."
+    "notes": "Factory ready date approx. 5 Jun 2026. No calendar event yet."
+  },
+  {
+    "id": "QOJ-87/RAW3",
+    "supplier": "Kejian",
+    "status": "TBC",
+    "name": "COSTRUCT (ORIA) - KEJIAN RAW MATERIALS - L17",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "New job in Nifty (12 May). QC TBA. No calendar event yet."
   },
   {
     "id": "QOJ-18/J",
     "supplier": "Brun Joinery",
-    "status": "TBC",
+    "status": "Confirmed",
     "name": "COSTRUCT (ORIA) BRUN JOINERY (L13)",
     "dateStr": "23 May 2026",
     "dateISO": "2026-05-23",
     "dateChanged": false,
     "oldDate": "",
-    "notes": ""
+    "notes": "Confirmed 23 May (updated 12 May 2026)."
   },
   {
     "id": "QOJ-18/K",
@@ -606,10 +573,10 @@ const jobs = [
     "notes": ""
   },
   {
-    "id": "QOJ-169/B",
+    "id": "QOJ-18/L",
     "supplier": "Brun Joinery",
     "status": "TBC",
-    "name": "SUNBUILT (MQ2) - BRUN JOINERY - L7-L8",
+    "name": "COSTRUCT (ORIA) BRUN JOINERY (Common Areas)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
@@ -617,10 +584,10 @@ const jobs = [
     "notes": ""
   },
   {
-    "id": "QOJ-18/L",
+    "id": "QOJ-169/B",
     "supplier": "Brun Joinery",
     "status": "TBC",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (Common Areas)",
+    "name": "SUNBUILT (MQ2) - BRUN JOINERY - L7-L8",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
