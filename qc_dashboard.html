@@ -216,9 +216,9 @@
       border-radius: 4px;
       white-space: nowrap;
     }
-    .badge-confirmed  { background: #dcfce7; color: #166534; }
-    .badge-tbc        { background: #fef9c3; color: #854d0e; }
-    .badge-notnifty   { background: #ffedd5; color: #9a3412; }
+    .badge-ink        { background: #dcfce7; color: #166534; }
+    .badge-pencil     { background: #fef9c3; color: #854d0e; }
+    .badge-pipeline   { background: #fee2e2; color: #991b1b; }
     .badge-completed  { background: #f1f5f9; color: #475569; }
 
     /* Supplier pills */
@@ -328,19 +328,17 @@
 
 <div class="legend">
   <span style="font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Legend</span>
-  <div class="legend-item"><div class="legend-dot" style="background:#4ade80;"></div> Confirmed</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div> TBC</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#fb923c;"></div> Not in Nifty</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#4ade80;"></div> Ink — confirmed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div> Pencil — likely to change</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div> Pipeline — on radar</div>
   <div class="legend-item"><div class="legend-changed"></div> Date changed this week</div>
 </div>
 
-<div class="filters">
+<div class="filters" id="filters">
   <span class="filter-label">Filter</span>
   <button class="filter-btn active" data-filter="all">All jobs</button>
-  <button class="filter-btn" data-filter="Kejian">Kejian</button>
-  <button class="filter-btn" data-filter="Brun Joinery">Brun Joinery</button>
-  <button class="filter-btn" data-filter="Broad">Broad</button>
-  <button class="filter-btn" data-filter="Other">Other</button>
+  <!-- supplier buttons injected by JS from the data -->
+
 </div>
 
 <div class="content" id="content">
@@ -349,217 +347,176 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Thursday, 21 May 2026";
+const GENERATED = "Thursday, 2 July 2026";
 
 const jobs = [
   {
-    "id": "QOJ-47/RAW",
+    "id": "QOJ-162A",
+    "supplier": "Yuexing Metal",
+    "status": "Pencil",
+    "category": "pencil",
+    "name": "SUNBUILT (MQ2) - YUEXING METAL BALUSTRADES (Glass, L7-L14)",
+    "dateStr": "6 Jul 2026",
+    "dateISO": "2026-07-06",
+    "dateChanged": false,
+    "oldDate": "",
+    "notes": "Balustrades L7-L14. Nifty tags this Kejian; calendar shows Yuexing Metal \u2014 following the calendar."
+  },
+  {
+    "id": "QOJ-87P",
     "supplier": "Kejian",
-    "status": "Confirmed",
-    "name": "(L11-L16) - SUNBUILT (MQ2) - KEJIAN WINDOWS - Full Length Profiles (Non-Cutted)",
-    "dateStr": "21 May 2026",
-    "dateISO": "2026-05-21",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse Windows/Doors + Entry Glazing",
+    "dateStr": "16 Jul 2026",
+    "dateISO": "2026-07-16",
     "dateChanged": true,
-    "oldDate": "22 May 2026",
-    "notes": "Confirmed by factory 11 May; date brought forward from 22 to 21 May."
+    "oldDate": "10 Jul 2026",
+    "notes": "Mid-July per factory. On Pipeline calendar."
   },
   {
-    "id": "QOJ-87/N",
+    "id": "QOJ-47G",
     "supplier": "Kejian",
-    "status": "Confirmed",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L16 (Penthouse) Windows/Doors + Business Centre Glazing",
-    "dateStr": "22 May 2026",
-    "dateISO": "2026-05-22",
-    "dateChanged": true,
-    "oldDate": "25 May 2026",
-    "notes": "~80% of cargo ready for QC 22 May (~1.7\u00d740HQ). First 40HQ loaded after inspection; remaining ~20 sliding door panels ready ~25 May and loaded separately."
-  },
-  {
-    "id": "QOJ-23/F",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "SIERA TAPESTRY - BROAD WINDOWS - GF & L19 & ROOF & S/M",
-    "dateStr": "29 May 2026",
-    "dateISO": "2026-05-29",
-    "dateChanged": true,
-    "oldDate": "23 May 2026",
-    "notes": "Date moved to 29 May (updated 18 May). Confirmation of final date expected around 22 May \u2014 follow up with factory."
-  },
-  {
-    "id": "QOJ-87/P",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 (Penthouse) Windows/Doors + Entry Glazing",
-    "dateStr": "30 May 2026",
-    "dateISO": "2026-05-30",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L15-L16 (Windows/Doors)",
+    "dateStr": "17 Jul 2026",
+    "dateISO": "2026-07-17",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "30 May per client schedule. Awaiting factory confirmation."
+    "notes": "Placeholder date \u2014 to be confirmed."
   },
   {
-    "id": "QOJ-97/K",
+    "id": "QOJ-190C",
     "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - YUEXING METAL - B1 SC01 DY-05-02/03 (5 sets) + GF SC04 DY-07-01 (1 set) + DY-08-02/03/04 (5 sets) + Roof SC01 DY-18-1 (1 set)",
-    "dateStr": "29 May 2026",
-    "dateISO": "2026-05-29",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - L2 Glass Panels (Bld 1&2)",
+    "dateStr": "20 Jul 2026",
+    "dateISO": "2026-07-20",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Placeholder date for follow-up. Update expected following QOJ-97/H QC on 15 May."
+    "notes": "Calendar names 'Windows' only; treated as Kejian per related Serenity jobs."
   },
   {
-    "id": "QOJ-162/A",
+    "id": "QOJ-190RAW1",
     "supplier": "Kejian",
-    "status": "TBC",
-    "name": "MQ2 - YUEXING METAL BALUSTRADES (L7)",
-    "dateStr": "1 Jun 2026",
-    "dateISO": "2026-06-01",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS Raw Material Aluminium Profiles - L3-L4 (Bld 1&2)",
+    "dateStr": "31 Jul 2026",
+    "dateISO": "2026-07-31",
     "dateChanged": false,
     "oldDate": "",
-    "notes": "1 Jun estimate \u2014 no confirmed date from factory (updated 27 Apr)."
+    "notes": "Raw material profiles. Nifty: end July, no shipping."
   },
   {
-    "id": "QOJ-23/G",
+    "id": "QOJ-97L",
     "supplier": "Kejian",
-    "status": "TBC",
-    "name": "SIERA TAPESTRY - BROAD WINDOWS - QC REPORT 8 (GF, Roof & S/M)",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (ORIA) - KEJIAN Balustrades - Glass Only (L17 Pool Level)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Not found in current Nifty export \u2014 verify status. Previously noted QC approx. 27\u201330 May 2026."
+    "notes": "Following in Nifty (QC TBA) \u2014 QC team to add to calendar."
   },
   {
-    "id": "QOJ-87/Q",
+    "id": "QOJ-97M",
     "supplier": "Kejian",
-    "status": "Not in Nifty",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - Re-Use Job",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (ORIA) - KEJIAN Balustrades (L16)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Removed from current Nifty export. Re-use job; scope merged into QOJ-87/N \u2014 verify with factory."
+    "notes": "Following in Nifty \u2014 QC team to add to calendar."
   },
   {
-    "id": "QOJ-97/L",
+    "id": "QOJ-162B",
     "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN BALUSTRADES - L17 Pool Level",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-TBA)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty (S1146). QC TBA \u2014 no calendar event yet."
+    "notes": "Following in Nifty \u2014 QC team to add to calendar."
   },
   {
-    "id": "QOJ-162/B",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "MQ2 - KEJIAN BALUSTRADES (L8-L31 TBC)",
+    "id": "QOJ-169B",
+    "supplier": "Brun",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - BRUN Joinery (L7-L8)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": ""
+    "notes": "Following in Nifty \u2014 QC team to add to calendar."
   },
   {
-    "id": "QOJ-190/RAW",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - Raw Materials",
+    "id": "QOJ-18L",
+    "supplier": "Brun",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (ORIA) - BRUN Joinery (Common Areas)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty (QC TBA). No calendar event yet \u2014 follow up with factory."
+    "notes": "Following in Nifty \u2014 QC team to add to calendar."
   },
   {
-    "id": "QOJ-190/A",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - LGF",
+    "id": "QOJ-378A",
+    "supplier": "Brun",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "VERSATILE GROUP - BRUN - Crows Nest (L1)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "Factory ready date approx. 5 Jun 2026. No calendar event yet."
+    "notes": "Following in Nifty (QC TBA) \u2014 QC team to add to calendar. May supersede completed QOJ-271D."
   },
   {
-    "id": "QOJ-87/RAW2",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN RAW MATERIALS - L16",
+    "id": "QOJ-385A",
+    "supplier": "Brun",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "VERSATILE GROUP - BRUN Joinery - Putney Prototype (Joinery, Shed, RFB, Terraces)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty (Kejian tag). QC date TBA \u2014 follow up on status with factory."
+    "notes": "Nifty QC 15-16 Jun has passed \u2014 confirm status; add to calendar if still pending. May supersede completed QOJ-271E."
   },
   {
-    "id": "QOJ-87/RAW3",
-    "supplier": "Kejian",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) - KEJIAN RAW MATERIALS - L17",
+    "id": "QOJ-311A",
+    "supplier": "Huapeng",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (SERENITY) - HUAPENG Ceramics (LGF-L4)",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": "In Nifty. QC TBA \u2014 no calendar event yet."
+    "notes": "Nifty QC 27 Jun has passed \u2014 confirm status; add to calendar if still pending."
   },
   {
-    "id": "QOJ-18/J",
-    "supplier": "Brun Joinery",
-    "status": "Confirmed",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (L13)",
-    "dateStr": "26 May 2026",
-    "dateISO": "2026-05-26",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Delayed to 26 May due to 2pac door delays (updated 13 May)."
-  },
-  {
-    "id": "QOJ-18/K",
-    "supplier": "Brun Joinery",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (L14 - Penthouses)",
-    "dateStr": "10 Jun 2026",
-    "dateISO": "2026-06-10",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Delayed to 10 Jun due to 2pac door delays (updated 13 May). Load 3\u20134 days after QC."
-  },
-  {
-    "id": "QOJ-18/M",
-    "supplier": "Brun Joinery",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (L15 - Penthouses)",
-    "dateStr": "23 Jun 2026",
-    "dateISO": "2026-06-23",
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": "Delayed to 23 Jun due to 2pac door delays (updated 13 May). Load 3\u20134 days after QC."
-  },
-  {
-    "id": "QOJ-18/L",
-    "supplier": "Brun Joinery",
-    "status": "TBC",
-    "name": "COSTRUCT (ORIA) BRUN JOINERY (Common Areas)",
+    "id": "QOJ-318A",
+    "supplier": "Heshan Biyu Stone",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - HESHAN BIYU STONE",
     "dateStr": "TBA",
     "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
-    "notes": ""
-  },
-  {
-    "id": "QOJ-169/B",
-    "supplier": "Brun Joinery",
-    "status": "TBC",
-    "name": "SUNBUILT (MQ2) - BRUN JOINERY - L7-L8",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notes": ""
+    "notes": "Nifty QC 13 Jun has passed \u2014 confirm status; add to calendar if still pending."
   }
 ];
 
@@ -601,17 +558,17 @@ function getBand(job) {
 }
 
 function supplierClass(s) {
-  if (s === "Kejian")      return "supplier-kejian";
-  if (s === "Brun Joinery") return "supplier-brun";
-  if (s === "Broad")       return "supplier-broad";
-  if (s === "Active Jobs") return "supplier-activejobs";
+  if (s === "Kejian")               return "supplier-kejian";
+  if (s === "Brun")                 return "supplier-brun";
+  if (s && s.indexOf("Broad") === 0) return "supplier-broad";
+  if (s === "Yuexing Metal")        return "supplier-activejobs";
   return "supplier-other";
 }
 function statusBadge(s) {
-  if (s === "Confirmed")   return '<span class="badge badge-confirmed">Confirmed</span>';
-  if (s === "TBC")         return '<span class="badge badge-tbc">TBC</span>';
-  if (s === "Not in Nifty") return '<span class="badge badge-notnifty">Not in Nifty</span>';
-  if (s === "Completed")   return '<span class="badge badge-completed">Completed</span>';
+  if (s === "Ink")       return '<span class="badge badge-ink">Ink</span>';
+  if (s === "Pencil")    return '<span class="badge badge-pencil">Pencil</span>';
+  if (s === "Pipeline")  return '<span class="badge badge-pipeline">Pipeline</span>';
+  if (s === "Completed") return '<span class="badge badge-completed">Completed</span>';
   return '';
 }
 
@@ -709,9 +666,9 @@ function render() {
   });
 
   // Summary
-  const confirmed = filtered.filter(j => j.status === "Confirmed" && j.dateISO).length;
-  const tbc = filtered.filter(j => j.status === "TBC" && j.dateISO).length;
-  const tba = filtered.filter(j => !j.dateISO).length;
+  const ink    = filtered.filter(j => j.status === "Ink").length;
+  const pencil = filtered.filter(j => j.status === "Pencil").length;
+  const pipeline = filtered.filter(j => j.status === "Pipeline").length;
   const changed = filtered.filter(j => j.dateChanged).length;
 
   document.getElementById("summary-bar").innerHTML = `
@@ -720,24 +677,44 @@ function render() {
       <span>total jobs</span>
     </div>
     <div class="summary-item">
-      <span class="summary-num" style="color:#166534">${confirmed}</span>
-      <span>confirmed</span>
+      <span class="summary-num" style="color:#166534">${ink}</span>
+      <span>Ink</span>
     </div>
     <div class="summary-item">
-      <span class="summary-num" style="color:#854d0e">${tbc}</span>
-      <span>TBC</span>
+      <span class="summary-num" style="color:#854d0e">${pencil}</span>
+      <span>Pencil</span>
+    </div>
+    <div class="summary-item">
+      <span class="summary-num" style="color:#991b1b">${pipeline}</span>
+      <span>Pipeline</span>
     </div>
     <div class="summary-item">
       <span class="summary-num" style="color:#ca8a04">${changed}</span>
       <span>date changes this week</span>
-    </div>
-    <div class="summary-item">
-      <span class="summary-num" style="color:#94a3b8">${tba}</span>
-      <span>TBA</span>
     </div>`;
 }
 
 // ── Filters ────────────────────────────────────────────────────────────────────
+// Build one supplier button per supplier present in the data, in a stable order.
+const SUPPLIER_ORDER = ["Kejian", "Brun", "Yuexing Metal", "Broad Windows", "Huapeng"];
+(function buildSupplierButtons() {
+  const present = [...new Set(jobs.map(j => j.supplier))];
+  present.sort((a, b) => {
+    const ia = SUPPLIER_ORDER.indexOf(a), ib = SUPPLIER_ORDER.indexOf(b);
+    const ra = ia === -1 ? SUPPLIER_ORDER.length : ia;
+    const rb = ib === -1 ? SUPPLIER_ORDER.length : ib;
+    return ra !== rb ? ra - rb : a.localeCompare(b);
+  });
+  const container = document.getElementById("filters");
+  present.forEach(sup => {
+    const btn = document.createElement("button");
+    btn.className = "filter-btn";
+    btn.dataset.filter = sup;
+    btn.textContent = sup;
+    container.appendChild(btn);
+  });
+})();
+
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
