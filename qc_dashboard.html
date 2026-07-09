@@ -216,9 +216,9 @@
       border-radius: 4px;
       white-space: nowrap;
     }
-    .badge-ink        { background: #dcfce7; color: #166534; }
-    .badge-pencil     { background: #fef9c3; color: #854d0e; }
-    .badge-pipeline   { background: #fee2e2; color: #991b1b; }
+    .badge-ink        { background: #00c853; color: #ffffff; }
+    .badge-pencil     { background: #ff6d00; color: #ffffff; }
+    .badge-pipeline   { background: #ff1744; color: #ffffff; }
     .badge-completed  { background: #f1f5f9; color: #475569; }
 
     /* Supplier pills */
@@ -328,9 +328,9 @@
 
 <div class="legend">
   <span style="font-size:11px;color:#64748b;font-weight:600;text-transform:uppercase;letter-spacing:0.5px;">Legend</span>
-  <div class="legend-item"><div class="legend-dot" style="background:#4ade80;"></div> Ink — confirmed</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#fbbf24;"></div> Pencil — likely to change</div>
-  <div class="legend-item"><div class="legend-dot" style="background:#f87171;"></div> Pipeline — on radar</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#00c853;"></div> Ink — confirmed</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff6d00;"></div> Pencil — likely to change</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#ff1744;"></div> Pipeline — on radar</div>
   <div class="legend-item"><div class="legend-changed"></div> Date changed this week</div>
 </div>
 
@@ -400,7 +400,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Moved from Pipeline to Pencil this week. Not in Nifty (Yuexing Metal jobs aren't tracked in the QC-only export)."
+    "notes": "Now appears in Nifty (tagged Kejian there, but job name confirms Yuexing Metal); due date matches calendar (15 Jul)."
   },
   {
     "id": "QOJ-87P",
@@ -691,15 +691,15 @@ function render() {
       <span>total jobs</span>
     </div>
     <div class="summary-item">
-      <span class="summary-num" style="color:#166534">${ink}</span>
+      <span class="summary-num" style="color:#00c853">${ink}</span>
       <span>Ink</span>
     </div>
     <div class="summary-item">
-      <span class="summary-num" style="color:#854d0e">${pencil}</span>
+      <span class="summary-num" style="color:#ff6d00">${pencil}</span>
       <span>Pencil</span>
     </div>
     <div class="summary-item">
-      <span class="summary-num" style="color:#991b1b">${pipeline}</span>
+      <span class="summary-num" style="color:#ff1744">${pipeline}</span>
       <span>Pipeline</span>
     </div>
     <div class="summary-item">
