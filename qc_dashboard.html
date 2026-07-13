@@ -347,34 +347,34 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Thursday, 9 July 2026";
+const GENERATED = "Monday, 13 July 2026";
 
 const jobs = [
   {
-    "id": "QOJ-378A",
-    "supplier": "Brun",
-    "status": "Ink",
-    "category": "ink",
-    "name": "VERSATILE GROUP - BRUN - Crows Nest (L1)",
-    "dateStr": "7-9 Jul 2026",
-    "dateISO": "2026-07-07",
-    "dateChanged": false,
-    "oldDate": "",
-    "notInNifty": false,
-    "notes": "Moved to Ink this week (was Pipeline, no date). Matches Nifty QC dates 7-9 Jul."
-  },
-  {
-    "id": "QOJ-97N",
+    "id": "QOJ-190C",
     "supplier": "Kejian",
     "status": "Ink",
     "category": "ink",
-    "name": "COSTRUCT (ORIA) - KEJIAN Balustrades - Amended L17 Pool Level (No Glass)",
-    "dateStr": "10 Jul 2026",
-    "dateISO": "2026-07-10",
+    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - L2 Glass Panels (Bld 2 only)",
+    "dateStr": "15 Jul 2026",
+    "dateISO": "2026-07-15",
+    "dateChanged": true,
+    "oldDate": "20 Jul 2026",
+    "notInNifty": false,
+    "notes": "Moved Pencil -> Ink \u2014 now confirmed; date brought forward from 20 Jul to 15 Jul. Scope narrowed to Bld 2 only (was Bld 1&2). Not in Nifty."
+  },
+  {
+    "id": "QOJ-87P",
+    "supplier": "Kejian",
+    "status": "Ink",
+    "category": "ink",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse (Skyhomes) Windows/Doors + Entry Glazing",
+    "dateStr": "16 Jul 2026",
+    "dateISO": "2026-07-16",
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "New job this week \u2014 date confirmed, can book shipping. Matches Nifty due date."
+    "notes": "Moved Pencil -> Ink \u2014 now confirmed (16 Jul), can book shipping. Matches Nifty QC 16 Jul; High Priority in Nifty."
   },
   {
     "id": "QOJ-18L",
@@ -387,46 +387,33 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Date confirmed \u2014 shipping can now be booked. Nifty shows due date 1 Aug; calendar date (31 Jul) takes precedence."
+    "notes": "Confirmed 31 Jul \u2014 unchanged. Nifty due 1 Aug; calendar date (31 Jul) takes precedence."
   },
   {
     "id": "QOJ-183A",
-    "supplier": "Yuexing Metal",
-    "status": "Pencil",
-    "category": "pencil",
-    "name": "KEYLIN (SERENITY) - YUEXING METAL Facades (Level TBA)",
-    "dateStr": "15 Jul 2026",
-    "dateISO": "2026-07-15",
-    "dateChanged": false,
-    "oldDate": "",
-    "notInNifty": false,
-    "notes": "Now appears in Nifty (tagged Kejian there, but job name confirms Yuexing Metal); due date matches calendar (15 Jul)."
-  },
-  {
-    "id": "QOJ-87P",
     "supplier": "Kejian",
     "status": "Pencil",
     "category": "pencil",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse Windows/Doors + Entry Glazing",
-    "dateStr": "16 Jul 2026",
-    "dateISO": "2026-07-16",
-    "dateChanged": false,
-    "oldDate": "",
+    "name": "KEYLIN (SERENITY) - KEJIAN Metal Facades (Level TBA)",
+    "dateStr": "17 Jul 2026",
+    "dateISO": "2026-07-17",
+    "dateChanged": true,
+    "oldDate": "15 Jul 2026",
     "notInNifty": false,
-    "notes": "Moved from Pipeline to Pencil this week. Matches Nifty due date."
+    "notes": "Date moved 15 Jul -> 17 Jul. Metal facades (Yuexing = Kejian). Nifty tags Kejian, dates 15 Jul; calendar takes precedence."
   },
   {
-    "id": "QOJ-190C",
+    "id": "QOJ-162B",
     "supplier": "Kejian",
-    "status": "Pencil",
-    "category": "pencil",
-    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - L2 Glass Panels (Bld 1&2)",
-    "dateStr": "20 Jul 2026",
-    "dateISO": "2026-07-20",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-L29)",
+    "dateStr": "23 Jul 2026",
+    "dateISO": "2026-07-23",
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Calendar names 'Windows' only; treated as Kejian per related Serenity jobs. Moved from Pipeline to Pencil this week."
+    "notes": "Added to calendar this week (Pipeline, 23 Jul) \u2014 was following in Nifty only last week. Balustrades (Yuexing = Kejian)."
   },
   {
     "id": "QOJ-47G",
@@ -452,7 +439,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "QC team has added this to the calendar (27 Jul) \u2014 previously no date. Nifty due date (12 Jun) has passed; calendar date takes precedence."
+    "notes": "Unchanged (27 Jul). Balustrades (Yuexing = Kejian). Nifty due date (12 Jun) has passed; calendar date takes precedence."
   },
   {
     "id": "QOJ-169B",
@@ -465,7 +452,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "QC team has added this to the calendar (30 Jul) \u2014 previously no date/following in Nifty only."
+    "notes": "Unchanged (30 Jul)."
   },
   {
     "id": "QOJ-190RAW1",
@@ -481,19 +468,6 @@ const jobs = [
     "notes": "Raw material profiles. Nifty: end July, no shipping. Unchanged this week."
   },
   {
-    "id": "QOJ-162B",
-    "supplier": "Kejian",
-    "status": "Pipeline",
-    "category": "pipeline",
-    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-TBA)",
-    "dateStr": "TBA",
-    "dateISO": null,
-    "dateChanged": false,
-    "oldDate": "",
-    "notInNifty": false,
-    "notes": "Following in Nifty (To Do) \u2014 QC team to add to calendar."
-  },
-  {
     "id": "QOJ-385A",
     "supplier": "Brun",
     "status": "Pipeline",
@@ -504,7 +478,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in this week's Nifty export \u2014 confirm still active. Last known Nifty QC 15-16 Jun has passed; add to calendar if still pending. May supersede completed QOJ-271E."
+    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
   },
   {
     "id": "QOJ-311A",
@@ -517,7 +491,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in this week's Nifty export \u2014 confirm still active. Last known Nifty QC 27 Jun has passed; add to calendar if still pending."
+    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
   },
   {
     "id": "QOJ-318A",
@@ -530,7 +504,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in this week's Nifty export \u2014 confirm still active. Last known Nifty QC 13 Jun has passed; add to calendar if still pending."
+    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
   }
 ];
 
