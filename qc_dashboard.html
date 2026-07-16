@@ -347,35 +347,9 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Monday, 13 July 2026";
+const GENERATED = "Thursday, 16 July 2026";
 
 const jobs = [
-  {
-    "id": "QOJ-190C",
-    "supplier": "Kejian",
-    "status": "Ink",
-    "category": "ink",
-    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - L2 Glass Panels (Bld 2 only)",
-    "dateStr": "15 Jul 2026",
-    "dateISO": "2026-07-15",
-    "dateChanged": true,
-    "oldDate": "20 Jul 2026",
-    "notInNifty": false,
-    "notes": "Moved Pencil -> Ink \u2014 now confirmed; date brought forward from 20 Jul to 15 Jul. Scope narrowed to Bld 2 only (was Bld 1&2). Not in Nifty."
-  },
-  {
-    "id": "QOJ-87P",
-    "supplier": "Kejian",
-    "status": "Ink",
-    "category": "ink",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse (Skyhomes) Windows/Doors + Entry Glazing",
-    "dateStr": "16 Jul 2026",
-    "dateISO": "2026-07-16",
-    "dateChanged": false,
-    "oldDate": "",
-    "notInNifty": false,
-    "notes": "Moved Pencil -> Ink \u2014 now confirmed (16 Jul), can book shipping. Matches Nifty QC 16 Jul; High Priority in Nifty."
-  },
   {
     "id": "QOJ-18L",
     "supplier": "Brun",
@@ -387,7 +361,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Confirmed 31 Jul \u2014 unchanged. Nifty due 1 Aug; calendar date (31 Jul) takes precedence."
+    "notes": "Confirmed 31 Jul \u2014 unchanged."
   },
   {
     "id": "QOJ-183A",
@@ -395,38 +369,25 @@ const jobs = [
     "status": "Pencil",
     "category": "pencil",
     "name": "KEYLIN (SERENITY) - KEJIAN Metal Facades (Level TBA)",
-    "dateStr": "17 Jul 2026",
-    "dateISO": "2026-07-17",
-    "dateChanged": true,
-    "oldDate": "15 Jul 2026",
-    "notInNifty": false,
-    "notes": "Date moved 15 Jul -> 17 Jul. Metal facades (Yuexing = Kejian). Nifty tags Kejian, dates 15 Jul; calendar takes precedence."
-  },
-  {
-    "id": "QOJ-162B",
-    "supplier": "Kejian",
-    "status": "Pipeline",
-    "category": "pipeline",
-    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-L29)",
     "dateStr": "23 Jul 2026",
     "dateISO": "2026-07-23",
-    "dateChanged": false,
-    "oldDate": "",
+    "dateChanged": true,
+    "oldDate": "17 Jul 2026",
     "notInNifty": false,
-    "notes": "Added to calendar this week (Pipeline, 23 Jul) \u2014 was following in Nifty only last week. Balustrades (Yuexing = Kejian)."
+    "notes": "Date moved 17 Jul -> 23 Jul. Metal facades (Yuexing = Kejian)."
   },
   {
-    "id": "QOJ-47G",
+    "id": "QOJ-87P",
     "supplier": "Kejian",
-    "status": "Pipeline",
-    "category": "pipeline",
-    "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L15-L16 (Windows/Doors)",
+    "status": "Pencil",
+    "category": "pencil",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse (Skyhomes) Windows/Doors + Entry Glazing",
     "dateStr": "24 Jul 2026",
     "dateISO": "2026-07-24",
-    "dateChanged": false,
-    "oldDate": "",
+    "dateChanged": true,
+    "oldDate": "16 Jul 2026",
     "notInNifty": false,
-    "notes": "Unchanged this week. Nifty due date (30 Jun) has passed \u2014 calendar date (24 Jul) takes precedence."
+    "notes": "Moved back Ink -> Pencil this week \u2014 date pushed from 16 Jul to 24 Jul. Was confirmed last week; flag for follow-up on the delay."
   },
   {
     "id": "QOJ-97L",
@@ -439,7 +400,20 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Unchanged (27 Jul). Balustrades (Yuexing = Kejian). Nifty due date (12 Jun) has passed; calendar date takes precedence."
+    "notes": "Unchanged (27 Jul). Balustrades (Yuexing = Kejian)."
+  },
+  {
+    "id": "QOJ-162B",
+    "supplier": "Kejian",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-L29)",
+    "dateStr": "28 Jul 2026",
+    "dateISO": "2026-07-28",
+    "dateChanged": true,
+    "oldDate": "23 Jul 2026",
+    "notInNifty": false,
+    "notes": "Date moved 23 Jul -> 28 Jul. Balustrades (Yuexing = Kejian)."
   },
   {
     "id": "QOJ-169B",
@@ -455,17 +429,43 @@ const jobs = [
     "notes": "Unchanged (30 Jul)."
   },
   {
+    "id": "QOJ-47G",
+    "supplier": "Kejian",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L15-L16 (Windows/Doors)",
+    "dateStr": "3 Aug 2026",
+    "dateISO": "2026-08-03",
+    "dateChanged": true,
+    "oldDate": "24 Jul 2026",
+    "notInNifty": false,
+    "notes": "Date moved 24 Jul -> 3 Aug."
+  },
+  {
     "id": "QOJ-190RAW1",
     "supplier": "Kejian",
     "status": "Pipeline",
     "category": "pipeline",
     "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS Raw Material Aluminium Profiles - L3-L4 (Bld 1&2)",
-    "dateStr": "31 Jul 2026",
-    "dateISO": "2026-07-31",
+    "dateStr": "7 Aug 2026",
+    "dateISO": "2026-08-07",
+    "dateChanged": true,
+    "oldDate": "31 Jul 2026",
+    "notInNifty": false,
+    "notes": "Raw material profiles. Date moved 31 Jul -> 7 Aug."
+  },
+  {
+    "id": "QOJ-190C",
+    "supplier": "Kejian",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS - L2 Glass Panels (Bld 2 only)",
+    "dateStr": "TBA",
+    "dateISO": null,
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Raw material profiles. Nifty: end July, no shipping. Unchanged this week."
+    "notes": "Off calendar this week after being marked Ink (confirmed) last week \u2014 likely QC completed. Confirm before retiring; no Nifty check run this week."
   },
   {
     "id": "QOJ-385A",
@@ -478,7 +478,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
+    "notes": "Not on any calendar for consecutive weeks \u2014 confirm still active or retire. No Nifty check run this week."
   },
   {
     "id": "QOJ-311A",
@@ -491,7 +491,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
+    "notes": "Not on any calendar for consecutive weeks \u2014 confirm still active or retire. No Nifty check run this week."
   },
   {
     "id": "QOJ-318A",
@@ -504,7 +504,7 @@ const jobs = [
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
-    "notes": "Not in Nifty or on any calendar for consecutive weeks \u2014 confirm still active or retire."
+    "notes": "Not on any calendar for consecutive weeks \u2014 confirm still active or retire. No Nifty check run this week."
   }
 ];
 
