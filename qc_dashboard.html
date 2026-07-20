@@ -347,73 +347,60 @@
 
 <script>
 // ── Data ──────────────────────────────────────────────────────────────────────
-const GENERATED = "Thursday, 16 July 2026";
+const GENERATED = "Monday, 20 July 2026";
 
 const jobs = [
   {
-    "id": "QOJ-18L",
-    "supplier": "Brun",
+    "id": "QOJ-87P",
+    "supplier": "Kejian",
     "status": "Ink",
     "category": "ink",
-    "name": "COSTRUCT (ORIA) - BRUN Joinery (Common Areas and Replacement Joinery)",
-    "dateStr": "31 Jul 2026",
-    "dateISO": "2026-07-31",
-    "dateChanged": false,
-    "oldDate": "",
+    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse (Skyhomes) Windows/Doors + Entry Glazing",
+    "dateStr": "21 Jul 2026",
+    "dateISO": "2026-07-21",
+    "dateChanged": true,
+    "oldDate": "24 Jul 2026",
     "notInNifty": false,
-    "notes": "Confirmed 31 Jul \u2014 unchanged."
+    "notes": "Moved to Ink \u2014 confirmed 21 Jul (was Pencil, pushed to 24 Jul last week)."
+  },
+  {
+    "id": "QOJ-162B",
+    "supplier": "Kejian",
+    "status": "Ink",
+    "category": "ink",
+    "name": "SUNBUILT (MQ2) - YUEXING METAL Balustrades (L15-L28)",
+    "dateStr": "22 Jul 2026",
+    "dateISO": "2026-07-22",
+    "dateChanged": true,
+    "oldDate": "28 Jul 2026",
+    "notInNifty": false,
+    "notes": "Moved to Ink \u2014 confirmed 22 Jul (was Pipeline, was 28 Jul). Balustrades (Yuexing = Kejian)."
   },
   {
     "id": "QOJ-183A",
     "supplier": "Kejian",
-    "status": "Pencil",
-    "category": "pencil",
-    "name": "KEYLIN (SERENITY) - KEJIAN Metal Facades (Level TBA)",
-    "dateStr": "23 Jul 2026",
-    "dateISO": "2026-07-23",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - YUEXING METAL Facades (Level TBA)",
+    "dateStr": "28 Jul 2026",
+    "dateISO": "2026-07-28",
     "dateChanged": true,
-    "oldDate": "17 Jul 2026",
+    "oldDate": "23 Jul 2026",
     "notInNifty": false,
-    "notes": "Date moved 17 Jul -> 23 Jul. Metal facades (Yuexing = Kejian)."
-  },
-  {
-    "id": "QOJ-87P",
-    "supplier": "Kejian",
-    "status": "Pencil",
-    "category": "pencil",
-    "name": "COSTRUCT (ORIA) - KEJIAN WINDOWS - L17 Penthouse (Skyhomes) Windows/Doors + Entry Glazing",
-    "dateStr": "24 Jul 2026",
-    "dateISO": "2026-07-24",
-    "dateChanged": true,
-    "oldDate": "16 Jul 2026",
-    "notInNifty": false,
-    "notes": "Moved back Ink -> Pencil this week \u2014 date pushed from 16 Jul to 24 Jul. Was confirmed last week; flag for follow-up on the delay."
+    "notes": "Moved back to Pipeline \u2014 date pushed from 23 Jul to 28 Jul (was Pencil). Facades (Yuexing = Kejian). Nifty lists more detail (roof/facade screens & glass balustrades, L4 Bld 1&2) \u2014 flag for scope check."
   },
   {
     "id": "QOJ-97L",
     "supplier": "Kejian",
     "status": "Pipeline",
     "category": "pipeline",
-    "name": "COSTRUCT (ORIA) - KEJIAN Balustrades - Glass Only (L17 Pool Level)",
+    "name": "COSTRUCT (ORIA) - YUEXING METAL Balustrades - Glass Only (L17 Pool Level)",
     "dateStr": "27 Jul 2026",
     "dateISO": "2026-07-27",
     "dateChanged": false,
     "oldDate": "",
     "notInNifty": false,
     "notes": "Unchanged (27 Jul). Balustrades (Yuexing = Kejian)."
-  },
-  {
-    "id": "QOJ-162B",
-    "supplier": "Kejian",
-    "status": "Pipeline",
-    "category": "pipeline",
-    "name": "SUNBUILT (MQ2) - KEJIAN Balustrades (L15-L29)",
-    "dateStr": "28 Jul 2026",
-    "dateISO": "2026-07-28",
-    "dateChanged": true,
-    "oldDate": "23 Jul 2026",
-    "notInNifty": false,
-    "notes": "Date moved 23 Jul -> 28 Jul. Balustrades (Yuexing = Kejian)."
   },
   {
     "id": "QOJ-169B",
@@ -429,6 +416,19 @@ const jobs = [
     "notes": "Unchanged (30 Jul)."
   },
   {
+    "id": "QOJ-190D",
+    "supplier": "Kejian",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "KEYLIN (SERENITY) - KEJIAN Windows - Bld 1 L2 (SW/SD/FW)",
+    "dateStr": "31 Jul 2026",
+    "dateISO": "2026-07-31",
+    "dateChanged": false,
+    "oldDate": "",
+    "notInNifty": false,
+    "notes": "New to Pipeline this week. Nifty due date (22 Jul) differs \u2014 calendar (31 Jul) is master."
+  },
+  {
     "id": "QOJ-47G",
     "supplier": "Kejian",
     "status": "Pipeline",
@@ -436,10 +436,10 @@ const jobs = [
     "name": "SUNBUILT (MQ2) - KEJIAN WINDOWS - L15-L16 (Windows/Doors)",
     "dateStr": "3 Aug 2026",
     "dateISO": "2026-08-03",
-    "dateChanged": true,
-    "oldDate": "24 Jul 2026",
+    "dateChanged": false,
+    "oldDate": "",
     "notInNifty": false,
-    "notes": "Date moved 24 Jul -> 3 Aug."
+    "notes": "Unchanged (3 Aug)."
   },
   {
     "id": "QOJ-190RAW1",
@@ -449,10 +449,23 @@ const jobs = [
     "name": "KEYLIN (SERENITY) - KEJIAN WINDOWS Raw Material Aluminium Profiles - L3-L4 (Bld 1&2)",
     "dateStr": "7 Aug 2026",
     "dateISO": "2026-08-07",
-    "dateChanged": true,
-    "oldDate": "31 Jul 2026",
+    "dateChanged": false,
+    "oldDate": "",
     "notInNifty": false,
-    "notes": "Raw material profiles. Date moved 31 Jul -> 7 Aug."
+    "notes": "Raw material profiles. Unchanged (7 Aug)."
+  },
+  {
+    "id": "QOJ-18L",
+    "supplier": "Brun",
+    "status": "Pipeline",
+    "category": "pipeline",
+    "name": "COSTRUCT (ORIA) - BRUN Joinery (Common Areas and Replacement Joinery)",
+    "dateStr": "TBA",
+    "dateISO": null,
+    "dateChanged": false,
+    "oldDate": "",
+    "notInNifty": false,
+    "notes": "Missing from calendar this week \u2014 still open in Nifty (due 1 Aug, not completed). Was Ink last week (31 Jul). Following in Nifty \u2014 QC team to add back to calendar."
   }
 ];
 
