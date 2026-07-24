@@ -112,6 +112,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <div class="card">
     <div class="h"><span>Pipeline &mdash; approved, awaiting (PO / stock / priority)</span></div>
     <div class="rlist" id="plist"></div>
+    <div id="scenwrap" style="margin-top:14px"></div>
     <div class="warnbar" id="pshort" style="display:none"></div>
     <div class="note"><b>Tick / untick</b> jobs above (quotes too) to test what-if scenarios — e.g. untick a job to free its stone and see whether the rest fit. This is a planning view only; it doesn't change the master file. Pipeline orders are committed but parked, so they don't reduce Available.</div>
   </div>
@@ -188,11 +189,24 @@ var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.
   stones.forEach(function(s){(s.pipe||[]).forEach(function(r){anyp.push(jobRow('p',r,s.name));});});
   pl.innerHTML = anyp.length?anyp.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
 
-  var pshort=document.getElementById('pshort');
+  var pshort=document.getElementById('pshort'), scenwrap=document.getElementById('scenwrap');
+  var jobStones=stones.filter(function(s){return (s.pipe&&s.pipe.length)||(s.res&&s.res.length);});
   function recompute(){
     var pSel={}, rSel={};
     document.querySelectorAll('.pchk').forEach(function(cb){ if(cb.checked){var st=cb.dataset.stone; pSel[st]=(pSel[st]||0)+parseFloat(cb.dataset.cbm);} });
     document.querySelectorAll('.rchk').forEach(function(cb){ if(cb.checked){var st=cb.dataset.stone; rSel[st]=(rSel[st]||0)+parseFloat(cb.dataset.cbm);} });
+    // running free-stone table (updates as jobs are ticked/unticked)
+    var rows='';
+    jobStones.forEach(function(s){
+      var committed=(pSel[s.name]||0)+(rSel[s.name]||0), avail=s.current+s.transit, free=avail-committed;
+      var col=free<-1e-9?'#c0392b':'#2e7d32';
+      rows+='<tr><td>'+s.name+'</td><td class="n">'+f(avail)+'</td><td class="n">'+f(committed)+'</td>'+
+        '<td class="n" style="color:'+col+';font-weight:700">'+f(free)+'</td></tr>';
+    });
+    scenwrap.innerHTML = rows ?
+      '<table><thead><tr><th>Stone</th><th style="text-align:right">Stock (factory + transit)</th>'+
+      '<th style="text-align:right">Ticked demand</th><th style="text-align:right">Free</th></tr></thead><tbody>'+
+      rows+'</tbody></table>' : '';
     // pipeline rows -> fits / SHORT badge based on ticked demand vs factory + in-transit
     document.querySelectorAll('.pchk').forEach(function(cb){
       var row=cb.closest('.jrow'), s=stoneMap[cb.dataset.stone], badge=row.querySelector('.jbadge');
