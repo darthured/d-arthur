@@ -62,6 +62,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <div class="kpis">
     <div class="kpi"><div class="lbl">Available now</div><div class="val" id="kAv">–<small> CBM</small></div></div>
     <div class="kpi"><div class="lbl">Held by open quotes</div><div class="val" id="kRe">–<small> CBM</small></div></div>
+    <div class="kpi"><div class="lbl">Pipeline (approved, parked)</div><div class="val" id="kPi">–<small> CBM</small></div></div>
     <div class="kpi"><div class="lbl">On the water</div><div class="val" id="kTr">–<small> CBM</small></div></div>
   </div>
 
@@ -97,6 +98,12 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   </div>
 
   <div class="card">
+    <div class="h"><span>Pipeline &mdash; approved, awaiting (PO / stock / priority)</span></div>
+    <div class="rlist" id="plist"></div>
+    <div class="note">Pipeline orders are committed but parked &mdash; they do <b>not</b> reduce Available. Compare them against in-transit stock below to see if incoming covers the backlog.</div>
+  </div>
+
+  <div class="card">
     <div class="h"><span>In transit &mdash; on the water</span></div>
     <table><thead><tr><th>Block</th><th>Stone</th><th style="text-align:right">CBM</th><th>ETA</th></tr></thead>
     <tbody id="ttbody"></tbody></table>
@@ -105,14 +112,16 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <p class="foot">Snapshot generated from the master workbook. For a live order/quote to be recorded, send the PDF to Claude in Cowork.</p>
 </div>
 <script>
-var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.0488, "transit": 14.21, "res": [{"ref": "SQ-270", "cbm": 3.4286, "exp": "2026-08-21"}]}, {"name": "Coffee", "current": 5.6143, "transit": 0.0, "res": []}, {"name": "Verde", "current": 16.9252, "transit": 39.041, "res": []}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": []}, {"name": "Desert Brown", "current": 0.0, "transit": 5.503, "res": []}], "transit": [{"block": "V143", "type": "Verde", "cbm": 7.14, "eta": "2026-07-31"}, {"block": "V144", "type": "Verde", "cbm": 8.56, "eta": "2026-07-31"}, {"block": "V164", "type": "Verde", "cbm": 7.595, "eta": "2026-07-31"}, {"block": "V181", "type": "Verde", "cbm": 7.438, "eta": "2026-07-31"}, {"block": "V185", "type": "Verde", "cbm": 8.308, "eta": "2026-07-31"}, {"block": "AJ1944", "type": "Juperana", "cbm": 7.28, "eta": "2026-07-31"}, {"block": "AJ1951", "type": "Juperana", "cbm": 6.93, "eta": "2026-07-31"}, {"block": "DB2861", "type": "Desert Brown", "cbm": 5.503, "eta": "2026-07-31"}]};
+var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.0488, "transit": 14.21, "res": [{"ref": "SQ-270", "cbm": 3.4286, "exp": "2026-08-21"}], "pipe": []}, {"name": "Coffee", "current": 5.6143, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 16.9252, "transit": 39.041, "res": [], "pipe": []}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 5.503, "res": [], "pipe": []}], "transit": [{"block": "V143", "type": "Verde", "cbm": 7.14, "eta": "2026-07-31"}, {"block": "V144", "type": "Verde", "cbm": 8.56, "eta": "2026-07-31"}, {"block": "V164", "type": "Verde", "cbm": 7.595, "eta": "2026-07-31"}, {"block": "V181", "type": "Verde", "cbm": 7.438, "eta": "2026-07-31"}, {"block": "V185", "type": "Verde", "cbm": 8.308, "eta": "2026-07-31"}, {"block": "AJ1944", "type": "Juperana", "cbm": 7.28, "eta": "2026-07-31"}, {"block": "AJ1951", "type": "Juperana", "cbm": 6.93, "eta": "2026-07-31"}, {"block": "DB2861", "type": "Desert Brown", "cbm": 5.503, "eta": "2026-07-31"}]};
 (function(){
   var stones = DATA.stones, f=function(n){return (+n).toFixed(3);};
   var resSum=function(s){return s.res.reduce(function(a,r){return a+r.cbm;},0);};
+  var pipeSum=function(s){return (s.pipe||[]).reduce(function(a,r){return a+r.cbm;},0);};
   document.getElementById('asat').textContent = 'As at '+DATA.asAt+'  ·  '+stones.length+' stone types';
   var tot=function(fn){return stones.reduce(function(a,s){return a+fn(s);},0);};
   document.getElementById('kAv').innerHTML = tot(function(s){return s.current-resSum(s);}).toFixed(1)+'<small> CBM</small>';
   document.getElementById('kRe').innerHTML = tot(function(s){return resSum(s);}).toFixed(1)+'<small> CBM</small>';
+  document.getElementById('kPi').innerHTML = tot(function(s){return pipeSum(s);}).toFixed(1)+'<small> CBM</small>';
   document.getElementById('kTr').innerHTML = tot(function(s){return s.transit;}).toFixed(1)+'<small> CBM</small>';
 
   var bars=document.getElementById('bars'), incT=document.getElementById('incT');
@@ -136,6 +145,11 @@ var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.
   stones.forEach(function(s){s.res.forEach(function(r){
     any.push('<div><span>'+r.ref+' · '+s.name+'</span><span>'+f(r.cbm)+' CBM · exp '+r.exp+'</span></div>');});});
   rl.innerHTML = any.length?any.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
+
+  var pl=document.getElementById('plist'), anyp=[];
+  stones.forEach(function(s){(s.pipe||[]).forEach(function(r){
+    anyp.push('<div><span>'+r.ref+' · '+s.name+'</span><span>'+f(r.cbm)+' CBM</span></div>');});});
+  pl.innerHTML = anyp.length?anyp.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
 
   var tb=document.getElementById('ttbody');
   tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
