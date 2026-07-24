@@ -47,11 +47,19 @@ input[type=range]{width:100%;accent-color:var(--green);}
 .out .big{font-size:15px;font-weight:700;}
 .out .sub2{color:var(--sec);font-size:12.5px;margin-top:3px;}
 .rlist{font-size:12px;color:var(--sec);}
-.rlist div{padding:6px 0;border-top:1px solid var(--bord);display:flex;justify-content:space-between;gap:8px;}
+.rlist div{padding:6px 0;border-top:1px solid var(--bord);display:flex;justify-content:space-between;align-items:center;gap:8px;}
 .rlist div:first-child{border-top:none;}
+.jlab{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.jlab input{cursor:pointer;flex:0 0 auto;}
+.jright{display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.jcbm{font-size:11px;color:var(--sec);font-variant-numeric:tabular-nums;}
+.jbadge{font-size:10px;font-weight:700;border-radius:4px;padding:1px 6px;letter-spacing:.03em;}
+.okbadge{background:#e2efda;color:#2e7d32;}
 .flag{color:#fff;background:#c0392b;border-radius:4px;padding:1px 6px;font-size:10px;font-weight:700;margin-left:6px;letter-spacing:.03em;}
 .warnbar{margin-top:10px;padding:10px 12px;border-radius:8px;background:rgba(192,57,43,.09);border:1px solid rgba(192,57,43,.45);font-size:12.5px;color:#8c2c22;line-height:1.5;}
+.warnbar.okbar{background:rgba(47,158,87,.09);border-color:rgba(47,158,87,.4);color:#2e7d32;}
 .warnbar b{color:#7a231b;}
+.okbar b{color:#256b39;}
 .note{font-size:11px;color:var(--muted);margin-top:10px;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bord);}
@@ -105,7 +113,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
     <div class="h"><span>Pipeline &mdash; approved, awaiting (PO / stock / priority)</span></div>
     <div class="rlist" id="plist"></div>
     <div class="warnbar" id="pshort" style="display:none"></div>
-    <div class="note">Pipeline orders are committed but parked &mdash; they do <b>not</b> reduce Available. Compare them against in-transit stock below to see if incoming covers the backlog.</div>
+    <div class="note"><b>Tick / untick</b> jobs above (quotes too) to test what-if scenarios — e.g. untick a job to free its stone and see whether the rest fit. This is a planning view only; it doesn't change the master file. Pipeline orders are committed but parked, so they don't reduce Available.</div>
   </div>
 
   <div class="card">
@@ -164,27 +172,62 @@ var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.
   }
   incT.addEventListener('change',drawBars); drawBars();
 
+  // ---- interactive: tick / untick jobs to test coverage (what-if scenario) ----
+  var stoneMap={}; stones.forEach(function(s){stoneMap[s.name]=s;});
+  function jobRow(kind,r,st){
+    return '<div class="jrow"><label class="jlab"><input type="checkbox" class="'+kind+'chk" checked '+
+      'data-stone="'+st+'" data-cbm="'+r.cbm+'"><span><b>'+r.ref+'</b> — '+(r.proj||st)+' · '+st+'</span></label>'+
+      '<span class="jright"><span class="jbadge" style="display:none"></span>'+
+      '<span class="jcbm">'+f(r.cbm)+' CBM'+(kind=='r'&&r.exp?' · exp '+r.exp:'')+'</span></span></div>';
+  }
   var rl=document.getElementById('rlist'), any=[];
-  stones.forEach(function(s){s.res.forEach(function(r){
-    var nm=r.proj?r.proj:s.name;
-    any.push('<div><span><b>'+r.ref+'</b> — '+nm+' · '+s.name+'</span><span>'+f(r.cbm)+' CBM · exp '+r.exp+'</span></div>');});});
+  stones.forEach(function(s){s.res.forEach(function(r){any.push(jobRow('r',r,s.name));});});
   rl.innerHTML = any.length?any.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
 
-  // pipeline list + per-stone short flag (pipeline demand vs factory + in-transit)
-  var pl=document.getElementById('plist'), anyp=[], shortLines=[];
-  stones.forEach(function(s){
-    var ps=pipeSum(s); if(ps<=0) return;
-    var combined=s.current+s.transit, shortBy=ps-combined, isShort=shortBy>1e-9;
-    if(isShort) shortLines.push('<b>'+s.name+'</b>: pipeline '+f(ps)+' CBM vs '+f(combined)+' available (factory + in-transit) — <b>short '+f(shortBy)+' CBM</b>');
-    (s.pipe||[]).forEach(function(r){
-      var nm=r.proj?r.proj:s.name;
-      var flag=isShort?' <span class="flag">SHORT</span>':'';
-      anyp.push('<div><span><b>'+r.ref+'</b> — '+nm+' · '+s.name+flag+'</span><span>'+f(r.cbm)+' CBM</span></div>');});
-  });
+  var pl=document.getElementById('plist'), anyp=[];
+  stones.forEach(function(s){(s.pipe||[]).forEach(function(r){anyp.push(jobRow('p',r,s.name));});});
   pl.innerHTML = anyp.length?anyp.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
-  var ps=document.getElementById('pshort');
-  if(shortLines.length){ ps.style.display='block';
-    ps.innerHTML='⚠ <b>Not enough stock to cover pipeline</b> (even with in-transit):<br>'+shortLines.join('<br>'); }
+
+  var pshort=document.getElementById('pshort');
+  function recompute(){
+    var pSel={}, rSel={};
+    document.querySelectorAll('.pchk').forEach(function(cb){ if(cb.checked){var st=cb.dataset.stone; pSel[st]=(pSel[st]||0)+parseFloat(cb.dataset.cbm);} });
+    document.querySelectorAll('.rchk').forEach(function(cb){ if(cb.checked){var st=cb.dataset.stone; rSel[st]=(rSel[st]||0)+parseFloat(cb.dataset.cbm);} });
+    // pipeline rows -> fits / SHORT badge based on ticked demand vs factory + in-transit
+    document.querySelectorAll('.pchk').forEach(function(cb){
+      var row=cb.closest('.jrow'), s=stoneMap[cb.dataset.stone], badge=row.querySelector('.jbadge');
+      if(!cb.checked){ row.style.opacity=.45; badge.style.display='none'; return; }
+      row.style.opacity=1;
+      var combined=s.current+s.transit, sel=pSel[cb.dataset.stone]||0;
+      badge.style.display='';
+      if(sel>combined+1e-9){ badge.className='jbadge flag'; badge.textContent='SHORT'; }
+      else { badge.className='jbadge okbadge'; badge.textContent='fits'; }
+    });
+    // quote rows -> OVER badge if ticked quotes exceed current stock
+    document.querySelectorAll('.rchk').forEach(function(cb){
+      var row=cb.closest('.jrow'), s=stoneMap[cb.dataset.stone], badge=row.querySelector('.jbadge');
+      if(!cb.checked){ row.style.opacity=.45; badge.style.display='none'; return; }
+      row.style.opacity=1;
+      var avail=s.current-(rSel[cb.dataset.stone]||0);
+      if(avail<-1e-9){ badge.style.display=''; badge.className='jbadge flag'; badge.textContent='OVER'; }
+      else badge.style.display='none';
+    });
+    // banner: short stones for the ticked pipeline selection
+    var lines=[];
+    Object.keys(pSel).forEach(function(st){
+      var s=stoneMap[st], combined=s.current+s.transit, by=pSel[st]-combined;
+      if(by>1e-9) lines.push('<b>'+st+'</b>: ticked pipeline '+f(pSel[st])+' vs '+f(combined)+' available (factory + in-transit) — <b>short '+f(by)+' CBM</b>');
+    });
+    if(lines.length){ pshort.className='warnbar'; pshort.style.display='block';
+      pshort.innerHTML='⚠ <b>Not enough stock for the ticked jobs</b> (even with in-transit):<br>'+lines.join('<br>')+
+        '<br><span style="color:var(--muted)">Untick a job to free its stone and see if the rest fit.</span>'; }
+    else { pshort.className='warnbar okbar'; pshort.style.display='block';
+      pshort.innerHTML='✓ <b>All ticked jobs are covered</b> by factory + in-transit stock.'; }
+  }
+  document.addEventListener('change',function(e){
+    if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))) recompute();
+  });
+  recompute();
 
   var tb=document.getElementById('ttbody');
   tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
