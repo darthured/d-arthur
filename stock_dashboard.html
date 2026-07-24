@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stone Stock Dashboard</title>
+<style>
+:root{--navy:#1F3864;--green:#2f9e57;--amber:#d9a441;--blue:#3b7dd8;--ink:#1c1c1a;
+--muted:#8a877e;--sec:#57544c;--bord:#e6e4de;--bord2:#d2cfc6;--card:#ffffff;--sunk:#f2f0ea;--bg:#faf9f6;}
+*{box-sizing:border-box;}
+body{font-family:'Inter','Segoe UI',system-ui,-apple-system,sans-serif;color:var(--ink);
+background:var(--bg);margin:0;padding:26px 18px;line-height:1.45;}
+.wrap{max-width:820px;margin:0 auto;}
+h1{font-size:22px;margin:0 0 2px;color:var(--navy);}
+.sub{font-size:12.5px;color:var(--muted);margin:0 0 4px;}
+.badge{display:inline-block;font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;
+color:var(--muted);border:1px solid var(--bord);border-radius:20px;padding:3px 10px;margin:8px 0 18px;}
+.kpis{display:flex;gap:10px;margin:0 0 16px;flex-wrap:wrap;}
+.kpi{flex:1;min-width:150px;border:1px solid var(--bord);border-radius:12px;padding:12px 14px;background:var(--card);}
+.kpi .lbl{font-size:11px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);}
+.kpi .val{font-size:25px;font-weight:700;margin-top:3px;}
+.kpi .val small{font-size:12px;font-weight:500;color:var(--muted);}
+.card{border:1px solid var(--bord);border-radius:12px;padding:16px 18px;background:var(--card);margin-bottom:14px;}
+.h{font-size:13.5px;font-weight:700;margin:0 0 12px;display:flex;justify-content:space-between;align-items:center;gap:10px;}
+.toggle{font-size:12px;font-weight:500;color:var(--sec);display:flex;align-items:center;gap:6px;cursor:pointer;user-select:none;}
+.row{display:grid;grid-template-columns:96px 1fr 168px;align-items:center;gap:10px;margin:8px 0;}
+.nm{font-size:12.5px;font-weight:600;}
+.track{position:relative;height:22px;background:var(--sunk);border-radius:5px;overflow:hidden;}
+.seg{position:absolute;top:0;bottom:0;left:0;}
+.s-av{background:var(--green);border-radius:5px 0 0 5px;}
+.s-re{background:var(--amber);}
+.s-tr{background:var(--blue);opacity:.5;}
+.nums{font-size:11px;text-align:right;color:var(--sec);font-variant-numeric:tabular-nums;}
+.nums b{color:var(--ink);}
+.legend{display:flex;gap:14px;font-size:11px;color:var(--muted);margin-top:8px;flex-wrap:wrap;}
+.dot{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:4px;vertical-align:middle;}
+.calc{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px;}
+.fld{display:flex;flex-direction:column;gap:4px;}
+.fld label{font-size:11px;font-weight:600;color:var(--sec);}
+.fld select,.fld input[type=number]{font:inherit;font-size:13px;padding:8px 9px;border:1px solid var(--bord2);
+border-radius:8px;background:var(--card);color:inherit;}
+input[type=range]{width:100%;accent-color:var(--green);}
+.out{margin-top:14px;border-radius:10px;padding:13px 15px;font-size:13.5px;line-height:1.5;border:1px solid;}
+.ok{background:rgba(47,158,87,.09);border-color:rgba(47,158,87,.4);}
+.warn{background:rgba(217,164,65,.12);border-color:rgba(217,164,65,.55);}
+.no{background:rgba(200,60,40,.08);border-color:rgba(200,60,40,.4);}
+.out .big{font-size:15px;font-weight:700;}
+.out .sub2{color:var(--sec);font-size:12.5px;margin-top:3px;}
+.rlist{font-size:12px;color:var(--sec);}
+.rlist div{padding:6px 0;border-top:1px solid var(--bord);display:flex;justify-content:space-between;gap:8px;}
+.rlist div:first-child{border-top:none;}
+.note{font-size:11px;color:var(--muted);margin-top:10px;}
+table{width:100%;border-collapse:collapse;font-size:12px;}
+th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bord);}
+th{color:var(--muted);font-weight:600;font-size:10.5px;letter-spacing:.03em;text-transform:uppercase;}
+td.n{text-align:right;font-variant-numeric:tabular-nums;}
+.foot{font-size:11px;color:var(--muted);margin-top:18px;text-align:center;}
+</style></head>
+<body><div class="wrap">
+  <h1>Stone Block Stock</h1>
+  <p class="sub" id="asat"></p>
+  <span class="badge">View &amp; check only &middot; does not change the master workbook</span>
+
+  <div class="kpis">
+    <div class="kpi"><div class="lbl">Available now</div><div class="val" id="kAv">–<small> CBM</small></div></div>
+    <div class="kpi"><div class="lbl">Held by open quotes</div><div class="val" id="kRe">–<small> CBM</small></div></div>
+    <div class="kpi"><div class="lbl">On the water</div><div class="val" id="kTr">–<small> CBM</small></div></div>
+  </div>
+
+  <div class="card">
+    <div class="h"><span>Stock by stone</span>
+      <label class="toggle"><input type="checkbox" id="incT"> include in-transit</label></div>
+    <div id="bars"></div>
+    <div class="legend">
+      <span><span class="dot" style="background:var(--green)"></span>Available</span>
+      <span><span class="dot" style="background:var(--amber)"></span>Held by open quotes</span>
+      <span><span class="dot" style="background:var(--blue);opacity:.5"></span>In transit</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="h"><span>Can we cover this order?</span></div>
+    <div class="calc">
+      <div class="fld"><label>Stone</label><select id="cStone"></select></div>
+      <div class="fld"><label>Net CBM required</label><input type="number" id="cNet" value="6" min="0" step="0.1"></div>
+      <div class="fld" style="grid-column:1/3"><label>Wastage: <span id="wLbl">30%</span></label>
+        <input type="range" id="cW" min="0" max="50" value="30" step="5"></div>
+      <div class="fld" style="grid-column:1/3"><label class="toggle" style="font-size:12px">
+        <input type="checkbox" id="cInc"> count in-transit stock as available</label></div>
+    </div>
+    <div class="out ok" id="cOut"></div>
+    <div class="note">Gross = Net &divide; (1 &minus; wastage). Available = in-factory stock &minus; stone held by open quotes.
+      A clash is flagged when there is enough stone physically but open quotes are holding part of it.</div>
+  </div>
+
+  <div class="card">
+    <div class="h"><span>Open quotes holding stock</span></div>
+    <div class="rlist" id="rlist"></div>
+  </div>
+
+  <div class="card">
+    <div class="h"><span>In transit &mdash; on the water</span></div>
+    <table><thead><tr><th>Block</th><th>Stone</th><th style="text-align:right">CBM</th><th>ETA</th></tr></thead>
+    <tbody id="ttbody"></tbody></table>
+  </div>
+
+  <p class="foot">Snapshot generated from the master workbook. For a live order/quote to be recorded, send the PDF to Claude in Cowork.</p>
+</div>
+<script>
+var DATA = {"asAt": "2026-07-24", "stones": [{"name": "Juperana", "current": 12.0488, "transit": 14.21, "res": [{"ref": "SQ-270", "cbm": 3.4286, "exp": "2026-08-21"}]}, {"name": "Coffee", "current": 5.6143, "transit": 0.0, "res": []}, {"name": "Verde", "current": 16.9252, "transit": 39.041, "res": []}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": []}, {"name": "Desert Brown", "current": 0.0, "transit": 5.503, "res": []}], "transit": [{"block": "V143", "type": "Verde", "cbm": 7.14, "eta": "2026-07-31"}, {"block": "V144", "type": "Verde", "cbm": 8.56, "eta": "2026-07-31"}, {"block": "V164", "type": "Verde", "cbm": 7.595, "eta": "2026-07-31"}, {"block": "V181", "type": "Verde", "cbm": 7.438, "eta": "2026-07-31"}, {"block": "V185", "type": "Verde", "cbm": 8.308, "eta": "2026-07-31"}, {"block": "AJ1944", "type": "Juperana", "cbm": 7.28, "eta": "2026-07-31"}, {"block": "AJ1951", "type": "Juperana", "cbm": 6.93, "eta": "2026-07-31"}, {"block": "DB2861", "type": "Desert Brown", "cbm": 5.503, "eta": "2026-07-31"}]};
+(function(){
+  var stones = DATA.stones, f=function(n){return (+n).toFixed(3);};
+  var resSum=function(s){return s.res.reduce(function(a,r){return a+r.cbm;},0);};
+  document.getElementById('asat').textContent = 'As at '+DATA.asAt+'  ·  '+stones.length+' stone types';
+  var tot=function(fn){return stones.reduce(function(a,s){return a+fn(s);},0);};
+  document.getElementById('kAv').innerHTML = tot(function(s){return s.current-resSum(s);}).toFixed(1)+'<small> CBM</small>';
+  document.getElementById('kRe').innerHTML = tot(function(s){return resSum(s);}).toFixed(1)+'<small> CBM</small>';
+  document.getElementById('kTr').innerHTML = tot(function(s){return s.transit;}).toFixed(1)+'<small> CBM</small>';
+
+  var bars=document.getElementById('bars'), incT=document.getElementById('incT');
+  function drawBars(){
+    var withT=incT.checked;
+    var max=Math.max.apply(null,stones.map(function(s){return s.current+(withT?s.transit:0);}))||1;
+    bars.innerHTML=stones.map(function(s){
+      var rs=resSum(s), av=s.current-rs;
+      var avw=Math.max(av,0)/max*100, rw=rs/max*100, tw=(withT?s.transit:0)/max*100;
+      var seg='<div class="seg s-av" style="width:'+avw+'%"></div>';
+      if(rs>0) seg+='<div class="seg s-re" style="left:'+avw+'%;width:'+rw+'%"></div>';
+      if(withT&&s.transit>0) seg+='<div class="seg s-tr" style="left:'+(avw+rw)+'%;width:'+tw+'%"></div>';
+      var extra=(rs>0?' <span style="color:#b5842b">('+f(rs)+' held)</span>':'')+(withT&&s.transit>0?' <span style="color:#3b7dd8">+'+f(s.transit)+'</span>':'');
+      return '<div class="row"><div class="nm">'+s.name+'</div><div class="track">'+seg+'</div>'+
+        '<div class="nums"><b>'+f(av)+'</b>'+extra+'</div></div>';
+    }).join('');
+  }
+  incT.addEventListener('change',drawBars); drawBars();
+
+  var rl=document.getElementById('rlist'), any=[];
+  stones.forEach(function(s){s.res.forEach(function(r){
+    any.push('<div><span>'+r.ref+' · '+s.name+'</span><span>'+f(r.cbm)+' CBM · exp '+r.exp+'</span></div>');});});
+  rl.innerHTML = any.length?any.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
+
+  var tb=document.getElementById('ttbody');
+  tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
+    return '<tr><td>'+t.block+'</td><td>'+t.type+'</td><td class="n">'+f(t.cbm)+'</td><td>'+t.eta+'</td></tr>';
+  }).join('') : '<tr><td colspan="4" style="color:var(--muted)">Nothing in transit.</td></tr>';
+
+  var sel=document.getElementById('cStone');
+  sel.innerHTML=stones.map(function(s,i){return '<option value="'+i+'">'+s.name+'</option>';}).join('');
+  var net=document.getElementById('cNet'),w=document.getElementById('cW'),wLbl=document.getElementById('wLbl'),
+      cInc=document.getElementById('cInc'),out=document.getElementById('cOut');
+  function calc(){
+    var s=stones[+sel.value], ww=+w.value/100; wLbl.textContent=(+w.value)+'%';
+    var need=parseFloat(net.value)||0, gross=ww<1?need/(1-ww):0;
+    var rs=resSum(s), phys=s.current+(cInc.checked?s.transit:0), avail=phys-rs, cls,title,lines;
+    if(gross<=avail+1e-9){
+      cls='ok'; title='✓ Yes — '+s.name;
+      lines='Needs <b>'+f(gross)+'</b> CBM vs <b>'+f(avail)+'</b> available to promise. Surplus <b>'+f(avail-gross)+'</b> CBM.';
+    } else if(gross<=phys+1e-9){
+      cls='warn'; title='⚠ Possible clash — '+s.name;
+      var refs=s.res.map(function(r){return r.ref+' ('+f(r.cbm)+')';}).join(', ');
+      lines='Needs <b>'+f(gross)+'</b> CBM. There is <b>'+f(phys)+'</b> CBM of stone, but <b>'+f(rs)+'</b> is held by open quote'+(s.res.length>1?'s':'')+': <b>'+refs+'</b>. Only <b>'+f(avail)+'</b> is free — confirm before committing.';
+    } else {
+      cls='no'; title='✗ Not enough — '+s.name;
+      lines='Needs <b>'+f(gross)+'</b> CBM but only <b>'+f(phys)+'</b> CBM of stone exists'+(cInc.checked?' (incl. in-transit)':'')+'. Short <b>'+f(gross-phys)+'</b> CBM.';
+    }
+    out.className='out '+cls;
+    out.innerHTML='<div class="big">'+title+'</div><div class="sub2">'+lines+'</div>';
+  }
+  [sel,net,w,cInc].forEach(function(e){e.addEventListener('input',calc);});
+  cInc.addEventListener('change',calc); calc();
+})();
+</script>
+</body></html>
