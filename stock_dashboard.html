@@ -60,6 +60,16 @@ input[type=range]{width:100%;accent-color:var(--green);}
 .warnbar.okbar{background:rgba(47,158,87,.09);border-color:rgba(47,158,87,.4);color:#2e7d32;}
 .warnbar b{color:#7a231b;}
 .okbar b{color:#256b39;}
+.usebar-row{display:grid;grid-template-columns:92px 1fr;align-items:center;gap:10px;margin:11px 0;}
+.usebar-track{position:relative;height:22px;background:var(--sunk);border-radius:5px;}
+.useg{position:absolute;top:0;bottom:0;cursor:pointer;transition:opacity .12s;}
+.useg:first-child{border-radius:5px 0 0 5px;}
+.cap-line{position:absolute;top:-3px;bottom:-3px;border-left:2px dashed #1c1c1a;}
+.uselegend{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;}
+.uchip{display:flex;align-items:center;gap:5px;font-size:11px;padding:3px 9px;border:1px solid var(--bord);border-radius:20px;cursor:pointer;user-select:none;}
+.uchip .udot{width:10px;height:10px;border-radius:3px;flex:0 0 auto;}
+.uchip.dim{opacity:.38;}
+.useread{font-size:12.5px;color:var(--sec);margin-top:10px;line-height:1.5;}
 .note{font-size:11px;color:var(--muted);margin-top:10px;}
 table{width:100%;border-collapse:collapse;font-size:12px;}
 th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--bord);}
@@ -115,6 +125,14 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
     <div id="scenwrap" style="margin-top:14px"></div>
     <div class="warnbar" id="pshort" style="display:none"></div>
     <div class="note">The table above checks <b>all ticked jobs — quotes and pipeline together</b> — against your stock. Neither quotes nor pipeline reduce the stock bars; they're only tested here. Untick any job to free its stone and see if the rest fit (e.g. prioritise a quote by unticking a pipeline job). Use the <b>"include in-transit"</b> toggle to test with or without the stone on the water. Planning view only — it doesn't change the master file.</div>
+  </div>
+
+  <div class="card">
+    <div class="h"><span>Stock used by job</span></div>
+    <div id="usebars"></div>
+    <div id="uselegend" class="uselegend"></div>
+    <div id="useread" class="useread"></div>
+    <div class="note">Each colour is a job (ticked quotes + pipeline). Segments show how much of each stone's stock that job takes; the dashed line marks where stock runs out (segments past it are over stock). <b>Click a job</b> — chip or bar segment — to highlight it and see its share. Respects the in-transit toggle above.</div>
   </div>
 
   <div class="card">
@@ -175,7 +193,7 @@ var DATA = {"asAt": "2026-07-31", "stones": [{"name": "Juperana", "current": 12.
   function jobRow(kind,r,st){
     var poTag=r.po?' <span style="color:var(--muted)">· PO '+r.po+'</span>':'';
     return '<div class="jrow"><label class="jlab"><input type="checkbox" class="'+kind+'chk" checked '+
-      'data-stone="'+st+'" data-cbm="'+r.cbm+'"><span><b>'+r.ref+'</b> — '+(r.proj||st)+' · '+st+poTag+'</span></label>'+
+      'data-stone="'+st+'" data-cbm="'+r.cbm+'" data-ref="'+r.ref+'"><span><b>'+r.ref+'</b> — '+(r.proj||st)+' · '+st+poTag+'</span></label>'+
       '<span class="jright"><span class="jbadge" style="display:none"></span>'+
       '<span class="jcbm">'+f(r.cbm)+' CBM'+(kind=='r'&&r.exp?' · exp '+r.exp:'')+'</span></span></div>';
   }
@@ -231,11 +249,59 @@ var DATA = {"asAt": "2026-07-31", "stones": [{"name": "Juperana", "current": 12.
     else { pshort.className='warnbar okbar'; pshort.style.display='block';
       pshort.innerHTML='✓ <b>All ticked jobs are covered</b> by '+basisLbl+' stock.'; }
   }
-  document.addEventListener('change',function(e){
-    if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))) recompute();
+  // ---- "Stock used by job" — colour-coded segments per stone ----
+  var PALETTE=['#2f9e57','#3b7dd8','#e0872e','#8e44ad','#d64f8a','#12a4a4','#c0392b','#4568c8','#7e8b3d','#b0672f','#5f7d95','#9c4dcc','#2c9c8f','#cf5a2a'];
+  var refColor={}, ci=0;
+  stones.forEach(function(s){
+    (s.res||[]).concat(s.pipe||[]).forEach(function(r){ if(!(r.ref in refColor)){ refColor[r.ref]=PALETTE[ci%PALETTE.length]; ci++; } });
   });
-  incT.addEventListener('change',recompute);
-  recompute();
+  var usebars=document.getElementById('usebars'), uselegend=document.getElementById('uselegend'), useread=document.getElementById('useread');
+  var selRef=null;
+  function renderUsage(){
+    var perStone={};
+    document.querySelectorAll('.pchk,.rchk').forEach(function(cb){
+      if(!cb.checked) return;
+      var st=cb.dataset.stone;
+      (perStone[st]=perStone[st]||[]).push({ref:cb.dataset.ref,cbm:parseFloat(cb.dataset.cbm)});
+    });
+    var html='', refsSeen=[];
+    stones.forEach(function(s){
+      var jobs=perStone[s.name]; if(!jobs||!jobs.length) return;
+      var cap=stockBasis(s), demand=jobs.reduce(function(a,j){return a+j.cbm;},0), scale=Math.max(cap,demand)||1, off=0, segs='';
+      jobs.forEach(function(j){
+        if(refsSeen.indexOf(j.ref)<0) refsSeen.push(j.ref);
+        var w=j.cbm/scale*100, dim=(selRef&&selRef!==j.ref)?'opacity:.22;':'';
+        segs+='<div class="useg" data-ref="'+j.ref+'" title="'+j.ref+' · '+s.name+': '+f(j.cbm)+' CBM" style="left:'+off+'%;width:'+w+'%;background:'+refColor[j.ref]+';'+dim+'"></div>';
+        off+=w;
+      });
+      var capPct=Math.min(cap/scale*100,100);
+      html+='<div class="usebar-row"><div class="nm">'+s.name+'</div><div class="usebar-track">'+segs+
+        '<div class="cap-line" style="left:'+capPct+'%"></div></div></div>';
+    });
+    usebars.innerHTML = html || '<div style="color:var(--muted);font-size:12px">No ticked quotes or pipeline jobs.</div>';
+    uselegend.innerHTML = refsSeen.map(function(ref){
+      var dim=(selRef&&selRef!==ref)?' dim':'';
+      return '<span class="uchip'+dim+'" data-ref="'+ref+'"><span class="udot" style="background:'+refColor[ref]+'"></span>'+ref+'</span>';
+    }).join('');
+    if(selRef){
+      var parts=[];
+      stones.forEach(function(s){ (perStone[s.name]||[]).forEach(function(j){ if(j.ref===selRef){
+        var cap=stockBasis(s), pct=cap>0?Math.round(j.cbm/cap*100):null;
+        parts.push('<b>'+selRef+'</b> takes <b>'+f(j.cbm)+'</b> CBM of '+s.name+(pct!=null?' = <b>'+pct+'%</b> of its stock ('+f(cap)+' CBM)':' (no '+s.name+' stock)'));
+      }});});
+      useread.innerHTML = parts.length? parts.join('<br>') : '';
+    } else useread.innerHTML = '<span style="color:var(--muted)">Click a job to see how much stock it takes.</span>';
+  }
+  document.addEventListener('click',function(e){
+    var t=e.target.closest('.uchip')||e.target.closest('.useg');
+    if(t){ var ref=t.getAttribute('data-ref'); selRef=(selRef===ref)?null:ref; renderUsage(); }
+  });
+
+  document.addEventListener('change',function(e){
+    if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))){ recompute(); renderUsage(); }
+  });
+  incT.addEventListener('change',function(){ recompute(); renderUsage(); });
+  recompute(); renderUsage();
 
   var tb=document.getElementById('ttbody');
   tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
