@@ -99,7 +99,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <div class="kpis">
     <div class="kpi"><div class="lbl">In factory now</div><div class="val" id="kAv">–<small> CBM</small></div></div>
     <div class="kpi"><div class="lbl">Quoted (tentative)</div><div class="val" id="kRe">–<small> CBM</small></div></div>
-    <div class="kpi"><div class="lbl">Pipeline (approved)</div><div class="val" id="kPi">–<small> CBM</small></div></div>
+    <div class="kpi"><div class="lbl">Orders (approved)</div><div class="val" id="kPi">–<small> CBM</small></div></div>
     <div class="kpi"><div class="lbl">On the water</div><div class="val" id="kTr">–<small> CBM</small></div></div>
   </div>
 
@@ -110,21 +110,21 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
     <div class="legend">
       <span><span class="dot" style="background:var(--green)"></span>In factory</span>
       <span><span class="dot" style="background:var(--blue);opacity:.5"></span>In transit</span>
-      <span style="color:var(--muted)">Quotes &amp; pipeline don't reduce these bars — test them with the tick boxes below.</span>
+      <span style="color:var(--muted)">Quotes &amp; orders don't reduce these bars — test them with the tick boxes below.</span>
     </div>
   </div>
 
   <div class="card">
-    <div class="h"><span>Open quotes holding stock</span></div>
+    <div class="h"><span>Quotes</span></div>
     <div class="rlist" id="rlist"></div>
   </div>
 
   <div class="card">
-    <div class="h"><span>Pipeline &mdash; approved, awaiting (PO / stock / priority)</span></div>
+    <div class="h"><span>Orders</span></div>
     <div class="rlist" id="plist"></div>
     <div id="scenwrap" style="margin-top:14px"></div>
     <div class="warnbar" id="pshort" style="display:none"></div>
-    <div class="note">The table above checks <b>all ticked jobs — quotes and pipeline together</b> — against your stock. Neither quotes nor pipeline reduce the stock bars; they're only tested here. Untick any job to free its stone and see if the rest fit (e.g. prioritise a quote by unticking a pipeline job). Use the <b>"include in-transit"</b> toggle to test with or without the stone on the water. Planning view only — it doesn't change the master file.</div>
+    <div class="note">The table above checks <b>all ticked jobs — quotes and orders together</b> — against your stock. Neither quotes nor orders reduce the stock bars; they're only tested here. Untick any job to free its stone and see if the rest fit (e.g. prioritise a quote by unticking a orders job). Use the <b>"include in-transit"</b> toggle to test with or without the stone on the water. Planning view only — it doesn't change the master file.</div>
   </div>
 
   <div class="card">
@@ -132,7 +132,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
     <div id="usebars"></div>
     <div id="uselegend" class="uselegend"></div>
     <div id="useread" class="useread"></div>
-    <div class="note">Each colour is a job (ticked quotes + pipeline). Segments show how much of each stone's stock that job takes; the dashed line marks where stock runs out (segments past it are over stock). <b>Click a job</b> — chip or bar segment — to highlight it and see its share. Respects the in-transit toggle above.</div>
+    <div class="note">Each colour is a job (ticked quotes + orders). Segments show how much of each stone's stock that job takes; the dashed line marks where stock runs out (segments past it are over stock). <b>Click a job</b> — chip or bar segment — to highlight it and see its share. Respects the in-transit toggle above.</div>
   </div>
 
   <div class="card">
@@ -154,14 +154,14 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
         <input type="checkbox" id="cInc"> count in-transit stock as available</label></div>
     </div>
     <div class="out ok" id="cOut"></div>
-    <div class="note">Gross = Net &divide; (1 &minus; wastage). "Free" = stone in factory (tick in-transit to include it) &minus; what's already committed to quotes and pipeline. A <b>Tight</b> result means the stone exists but is largely committed — use the Overview scenario to decide priorities.</div>
+    <div class="note">Gross = Net &divide; (1 &minus; wastage). "Free" = stone in factory (tick in-transit to include it) &minus; what's already committed to quotes and orders. A <b>Tight</b> result means the stone exists but is largely committed — use the Overview scenario to decide priorities.</div>
   </div>
   </div><!-- /pane-chk -->
 
   <p class="foot">Snapshot generated from the master workbook. For a live order/quote to be recorded, send the PDF to Claude in Cowork.</p>
 </div>
 <script>
-var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 12.0488, "transit": 14.21, "res": [{"ref": "SQ-344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ-349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}], "pipe": [{"ref": "SQ-270", "proj": "Armadale / Central Park", "cbm": 2.2286, "po": ""}, {"ref": "SQ-332", "proj": "UniSQ Ipswich pavers", "cbm": 8.7943, "po": "409002"}, {"ref": "SQ-347", "proj": "Mooloolaba Foreshore", "cbm": 21.4429, "po": ""}]}, {"name": "Coffee", "current": 5.6143, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 16.0969, "transit": 39.041, "res": [], "pipe": [{"ref": "SQ-333", "proj": "Verde Pavers - Glen (SYD)", "cbm": 41.58, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 5.503, "res": [], "pipe": [{"ref": "SQ-332", "proj": "UniSQ Ipswich pavers", "cbm": 4.0729, "po": "409002"}]}], "transit": [{"block": "V143", "type": "Verde", "cbm": 7.14, "eta": "2026-07-31"}, {"block": "V144", "type": "Verde", "cbm": 8.56, "eta": "2026-07-31"}, {"block": "V164", "type": "Verde", "cbm": 7.595, "eta": "2026-07-31"}, {"block": "V181", "type": "Verde", "cbm": 7.438, "eta": "2026-07-31"}, {"block": "V185", "type": "Verde", "cbm": 8.308, "eta": "2026-07-31"}, {"block": "AJ1944", "type": "Juperana", "cbm": 7.28, "eta": "2026-07-31"}, {"block": "AJ1951", "type": "Juperana", "cbm": 6.93, "eta": "2026-07-31"}, {"block": "DB2861", "type": "Desert Brown", "cbm": 5.503, "eta": "2026-07-31"}]};
+var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 16.1631, "transit": 14.21, "res": [{"ref": "SQ344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}], "pipe": [{"ref": "SQ339", "proj": "Victoria Paving (VIC)", "cbm": 4.1143, "po": ""}, {"ref": "SQ270", "proj": "Armadale / Central Park", "cbm": 2.2286, "po": ""}, {"ref": "SQ332", "proj": "UniSQ Ipswich pavers", "cbm": 8.7943, "po": "409002"}, {"ref": "SQ347", "proj": "Mooloolaba Foreshore", "cbm": 21.4429, "po": ""}]}, {"name": "Coffee", "current": 11.1, "transit": 0.0, "res": [], "pipe": [{"ref": "SQ339", "proj": "Victoria Paving (VIC)", "cbm": 5.4857, "po": ""}]}, {"name": "Verde", "current": 16.9252, "transit": 39.041, "res": [], "pipe": [{"ref": "SQ333", "proj": "Verde Pavers - Glen (SYD)", "cbm": 41.58, "po": ""}, {"ref": "SQ330 (Rev 2)", "proj": "Sydney Kerbing / Dixon St", "cbm": 0.8283, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 5.503, "res": [], "pipe": [{"ref": "SQ332", "proj": "UniSQ Ipswich pavers", "cbm": 4.0729, "po": "409002"}]}], "transit": [{"block": "V143", "type": "Verde", "cbm": 7.14, "eta": "2026-07-31"}, {"block": "V144", "type": "Verde", "cbm": 8.56, "eta": "2026-07-31"}, {"block": "V164", "type": "Verde", "cbm": 7.595, "eta": "2026-07-31"}, {"block": "V181", "type": "Verde", "cbm": 7.438, "eta": "2026-07-31"}, {"block": "V185", "type": "Verde", "cbm": 8.308, "eta": "2026-07-31"}, {"block": "AJ1944", "type": "Juperana", "cbm": 7.28, "eta": "2026-07-31"}, {"block": "AJ1951", "type": "Juperana", "cbm": 6.93, "eta": "2026-07-31"}, {"block": "DB2861", "type": "Desert Brown", "cbm": 5.503, "eta": "2026-07-31"}]};
 (function(){
   var stones = DATA.stones, f=function(n){return (+n).toFixed(3);};
   var resSum=function(s){return s.res.reduce(function(a,r){return a+r.cbm;},0);};
@@ -205,16 +205,17 @@ var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 12.
   stones.forEach(function(s){(s.pipe||[]).forEach(function(r){anyp.push(jobRow('p',r,s.name));});});
   pl.innerHTML = anyp.length?anyp.join(''):'<div style="border:none;color:var(--muted)">None right now.</div>';
 
+
   var pshort=document.getElementById('pshort'), scenwrap=document.getElementById('scenwrap');
   var jobStones=stones.filter(function(s){return (s.pipe&&s.pipe.length)||(s.res&&s.res.length);});
   function stockBasis(s){ return s.current + (incT.checked ? s.transit : 0); }
   function recompute(){
-    // total ticked demand per stone — quotes AND pipeline together
+    // total ticked demand per stone — quotes AND orders together
     var demand={};
     document.querySelectorAll('.pchk,.rchk').forEach(function(cb){
       if(cb.checked){ var st=cb.dataset.stone; demand[st]=(demand[st]||0)+parseFloat(cb.dataset.cbm); }
     });
-    // badge every ticked job (quote or pipeline): fits / SHORT vs its stone's stock
+    // badge every ticked job (quote or orders): fits / SHORT vs its stone's stock
     document.querySelectorAll('.pchk,.rchk').forEach(function(cb){
       var row=cb.closest('.jrow'), s=stoneMap[cb.dataset.stone], badge=row.querySelector('.jbadge');
       if(!cb.checked){ row.style.opacity=.45; badge.style.display='none'; return; }
@@ -245,7 +246,7 @@ var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 12.
     });
     if(lines.length){ pshort.className='warnbar'; pshort.style.display='block';
       pshort.innerHTML='⚠ <b>Not enough stone for the ticked jobs</b>:<br>'+lines.join('<br>')+
-        '<br><span style="color:var(--muted)">Untick a job (quote or pipeline) to free its stone and see if the rest fit.</span>'; }
+        '<br><span style="color:var(--muted)">Untick a job (quote or orders) to free its stone and see if the rest fit.</span>'; }
     else { pshort.className='warnbar okbar'; pshort.style.display='block';
       pshort.innerHTML='✓ <b>All ticked jobs are covered</b> by '+basisLbl+' stock.'; }
   }
@@ -278,7 +279,7 @@ var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 12.
       html+='<div class="usebar-row"><div class="nm">'+s.name+'</div><div class="usebar-track">'+segs+
         '<div class="cap-line" style="left:'+capPct+'%"></div></div></div>';
     });
-    usebars.innerHTML = html || '<div style="color:var(--muted);font-size:12px">No ticked quotes or pipeline jobs.</div>';
+    usebars.innerHTML = html || '<div style="color:var(--muted);font-size:12px">No ticked quotes or orders jobs.</div>';
     uselegend.innerHTML = refsSeen.map(function(ref){
       var dim=(selRef&&selRef!==ref)?' dim':'';
       return '<span class="uchip'+dim+'" data-ref="'+ref+'"><span class="udot" style="background:'+refColor[ref]+'"></span>'+ref+'</span>';
@@ -322,7 +323,7 @@ var DATA = {"asAt": "2026-08-07", "stones": [{"name": "Juperana", "current": 12.
       lines='Needs <b>'+f(gross)+'</b> CBM. Free after existing commitments: <b>'+f(free)+'</b> CBM ('+src+'). Surplus <b>'+f(free-gross)+'</b> CBM.';
     } else if(gross<=phys+1e-9){
       cls='warn'; title='⚠ Tight — '+s.name;
-      lines='Needs <b>'+f(gross)+'</b> CBM. There is <b>'+f(phys)+'</b> CBM of stone ('+src+'), but <b>'+f(committed)+'</b> is already committed to quotes/pipeline — only <b>'+f(free)+'</b> is free. Check priorities on the Overview tab.';
+      lines='Needs <b>'+f(gross)+'</b> CBM. There is <b>'+f(phys)+'</b> CBM of stone ('+src+'), but <b>'+f(committed)+'</b> is already committed to quotes/orders — only <b>'+f(free)+'</b> is free. Check priorities on the Overview tab.';
     } else {
       cls='no'; title='✗ Not enough — '+s.name;
       lines='Needs <b>'+f(gross)+'</b> CBM but only <b>'+f(phys)+'</b> CBM of stone exists ('+src+'). Short <b>'+f(gross-phys)+'</b> CBM.';
