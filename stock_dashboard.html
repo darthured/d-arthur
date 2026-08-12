@@ -192,7 +192,7 @@ var DATA = {"asAt": "2026-08-12", "stones": [{"name": "Juperana", "current": 30.
   var stoneMap={}; stones.forEach(function(s){stoneMap[s.name]=s;});
   function jobRow(kind,r,st){
     var poTag=r.po?' <span style="color:var(--muted)">· PO '+r.po+'</span>':'';
-    return '<div class="jrow"><label class="jlab"><input type="checkbox" class="'+kind+'chk" '+(kind=='r'?'checked ':'')+
+    return '<div class="jrow"><label class="jlab"><input type="checkbox" class="'+kind+'chk" '+(kind=='p'?'checked ':'')+
       'data-stone="'+st+'" data-cbm="'+r.cbm+'" data-ref="'+r.ref+'"><span><b>'+r.ref+'</b> — '+(r.proj||st)+' · '+st+poTag+'</span></label>'+
       '<span class="jright"><span class="jbadge" style="display:none"></span>'+
       '<span class="jcbm">'+f(r.cbm)+' CBM'+(kind=='r'&&r.exp?' · exp '+r.exp:'')+'</span></span></div>';
