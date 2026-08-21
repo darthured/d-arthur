@@ -93,6 +93,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <div class="tabnav">
     <button class="tabbtn active" data-t="ovw">Overview</button>
     <button class="tabbtn" data-t="chk">Check an order</button>
+    <button class="tabbtn" data-t="fin">Finished orders</button>
   </div>
 
   <div id="pane-ovw" class="tabpane show">
@@ -158,10 +159,19 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   </div>
   </div><!-- /pane-chk -->
 
+  <div id="pane-fin" class="tabpane">
+    <div class="card">
+      <div class="h"><span>Finished orders</span></div>
+      <div class="note">Produced jobs — their stone has already been taken off the factory pool, so they no longer appear on the Orders or Quotes lists. <b>Finished product</b> = net product made; <b>block used</b> = raw block consumed from stock.</div>
+      <table><thead><tr><th>Order</th><th>Stone</th><th style="text-align:right">Finished product CBM</th><th style="text-align:right">Block used CBM</th></tr></thead>
+      <tbody id="fintbody"></tbody></table>
+    </div>
+  </div><!-- /pane-fin -->
+
   <p class="foot">Snapshot generated from the master workbook. For a live order/quote to be recorded, send the PDF to Claude in Cowork.</p>
 </div>
 <script>
-var DATA = {"asAt": "2026-08-21", "stones": [{"name": "Juperana", "current": 30.3521, "transit": 23.68, "res": [{"ref": "SQ344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}, {"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 8.0543, "exp": "", "po": ""}], "pipe": [{"ref": "SQ270", "proj": "Armadale / Central Park", "cbm": 3.4286, "po": "413064 / 416396"}, {"ref": "SQ332", "proj": "UniSQ Ipswich pavers", "cbm": 8.7943, "po": "409002"}, {"ref": "SQ347", "proj": "Mooloolaba Foreshore Pavers", "cbm": 21.4429, "po": ""}]}, {"name": "Coffee", "current": 11.1, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 55.9649, "transit": 20.74, "res": [{"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 44.6943, "exp": "", "po": ""}], "pipe": [{"ref": "SQ333", "proj": "Verde Pavers 50mm - Glen (SYD)", "cbm": 41.58, "po": ""}, {"ref": "SQ330 (Rev 2)", "proj": "Sydney Kerbing / Dixon St - bench (30% wastage)", "cbm": 0.8283, "po": ""}, {"ref": "SQ330 (Rev 2)", "proj": "Sydney Kerbing / Dixon St - cobbles (new block)", "cbm": 2.76, "po": ""}, {"ref": "SQ285", "proj": "Syd Civ Pitt St - Verde Kerbs (Urbanstone)", "cbm": 11.6157, "po": ""}, {"ref": "SQ354", "proj": "Syd Civ Pitt St Leathwood", "cbm": 6.1529, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 5.5027, "transit": 0.0, "res": [], "pipe": [{"ref": "SQ332", "proj": "UniSQ Ipswich pavers", "cbm": 4.0729, "po": "409002"}]}], "transit": [{"block": "AJ1937", "type": "Juperana", "cbm": 8.08, "eta": "2026-08-31"}, {"block": "AJ1948", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AJ1949", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AV205", "type": "Verde", "cbm": 6.4, "eta": "TBC"}, {"block": "AV206", "type": "Verde", "cbm": 7.18, "eta": "TBC"}, {"block": "AV207", "type": "Verde", "cbm": 7.16, "eta": "TBC"}]};
+var DATA = {"asAt": "2026-08-21", "stones": [{"name": "Juperana", "current": 18.1292, "transit": 23.68, "res": [{"ref": "SQ344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}, {"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 8.0543, "exp": "", "po": ""}], "pipe": [{"ref": "SQ347", "proj": "Mooloolaba Foreshore Pavers", "cbm": 21.4429, "po": ""}, {"ref": "SQ356", "proj": "Roma Street Top Up (Brisbane)", "cbm": 12.0, "po": ""}]}, {"name": "Coffee", "current": 11.1, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 52.3766, "transit": 20.74, "res": [{"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 44.6943, "exp": "", "po": ""}], "pipe": [{"ref": "SQ333", "proj": "Verde Pavers 50mm - Glen (SYD)", "cbm": 41.58, "po": ""}, {"ref": "SQ285", "proj": "Syd Civ Pitt St - Verde Kerbs (Urbanstone)", "cbm": 11.6157, "po": ""}, {"ref": "SQ354", "proj": "Syd Civ Pitt St Leathwood", "cbm": 6.1529, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 0.0, "res": [], "pipe": []}], "transit": [{"block": "AJ1937", "type": "Juperana", "cbm": 8.08, "eta": "2026-08-31"}, {"block": "AJ1948", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AJ1949", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AV205", "type": "Verde", "cbm": 6.4, "eta": "TBC"}, {"block": "AV206", "type": "Verde", "cbm": 7.18, "eta": "TBC"}, {"block": "AV207", "type": "Verde", "cbm": 7.16, "eta": "TBC"}], "finished": [{"date": "2026-08-10", "ref": "SQ270", "stone": "Juperana", "made": 2.4, "used": 3.429}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Juperana", "made": 6.156, "used": 8.794}, {"date": "2026-08-05", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 0.58, "used": 0.828}, {"date": "2026-08-17", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 2.76, "used": 2.76}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Desert Brown", "made": 2.851, "used": 5.503}]};
 (function(){
   var stones = DATA.stones, f=function(n){return (+n).toFixed(3);};
   var resSum=function(s){return s.res.reduce(function(a,r){return a+r.cbm;},0);};
@@ -311,6 +321,15 @@ var DATA = {"asAt": "2026-08-21", "stones": [{"name": "Juperana", "current": 30.
   tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
     return '<tr><td>'+t.block+'</td><td>'+t.type+'</td><td class="n">'+f(t.cbm)+'</td><td>'+t.eta+'</td></tr>';
   }).join('') : '<tr><td colspan="4" style="color:var(--muted)">Nothing in transit.</td></tr>';
+
+  var fintb=document.getElementById('fintbody'), fdata=DATA.finished||[];
+  var fmade=0,fused=0;
+  fintb.innerHTML = fdata.length? (fdata.map(function(x){
+      fmade+=x.made; fused+=x.used;
+      return '<tr><td><b>'+x.ref+'</b></td><td>'+x.stone+'</td><td class="n">'+f(x.made)+'</td><td class="n">'+f(x.used)+'</td></tr>';
+    }).join('') +
+    '<tr style="font-weight:700;background:#f3f5f8"><td>TOTAL</td><td></td><td class="n">'+f(fmade)+'</td><td class="n">'+f(fused)+'</td></tr>'
+  ) : '<tr><td colspan="4" style="color:var(--muted)">No finished orders yet.</td></tr>';
 
   var sel=document.getElementById('cStone');
   sel.innerHTML=stones.map(function(s,i){return '<option value="'+i+'">'+s.name+'</option>';}).join('');
