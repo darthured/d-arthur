@@ -110,7 +110,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
     <div class="legend">
       <span><span class="dot" style="background:var(--green)"></span>In factory</span>
       <span><span class="dot" style="background:var(--blue);opacity:.5"></span>In transit</span>
-      <span style="color:var(--muted)">Quotes &amp; orders don't reduce these bars — test them with the tick boxes below.</span>
+      <span style="color:var(--muted)">Quotes &amp; orders don't reduce these bars — test them with the tick boxes below. "Left after orders" = stock (incl. in-transit if ticked) minus approved orders; red = short.</span>
     </div>
   </div>
 
@@ -182,8 +182,11 @@ var DATA = {"asAt": "2026-08-21", "stones": [{"name": "Juperana", "current": 30.
       var seg='<div class="seg s-av" style="width:'+cw+'%"></div>';
       if(withT&&s.transit>0) seg+='<div class="seg s-tr" style="left:'+cw+'%;width:'+tw+'%"></div>';
       var extra=(withT&&s.transit>0?' <span style="color:#3b7dd8">+'+f(s.transit)+'</span>':'');
+      var basis=s.current+(withT?s.transit:0), leftO=basis-pipeSum(s);
+      var lcol=leftO<-1e-9?'#c0392b':'#2e7d32';
       return '<div class="row"><div class="nm">'+s.name+'</div><div class="track">'+seg+'</div>'+
-        '<div class="nums"><b>'+f(s.current)+'</b>'+extra+'</div></div>';
+        '<div class="nums"><b>'+f(s.current)+'</b>'+extra+
+        '<div style="font-size:11px;font-weight:600;color:'+lcol+'">left after orders: '+f(leftO)+'</div></div></div>';
     }).join('');
   }
   incT.addEventListener('change',drawBars); drawBars();
