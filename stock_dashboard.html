@@ -192,7 +192,8 @@ var DATA = {"asAt": "2026-08-25", "stones": [{"name": "Juperana", "current": 14.
       var seg='<div class="seg s-av" style="width:'+cw+'%"></div>';
       if(withT&&s.transit>0) seg+='<div class="seg s-tr" style="left:'+cw+'%;width:'+tw+'%"></div>';
       var extra=(withT&&s.transit>0?' <span style="color:#3b7dd8">+'+f(s.transit)+'</span>':'');
-      var basis=s.current+(withT?s.transit:0), leftO=basis-pipeSum(s);
+      var od=0; document.querySelectorAll('.pchk').forEach(function(cb){ if(cb.checked&&cb.dataset.stone===s.name) od+=parseFloat(cb.dataset.cbm); });
+      var basis=s.current+(withT?s.transit:0), leftO=basis-od;
       var lcol=leftO<-1e-9?'#c0392b':'#2e7d32';
       return '<div class="row"><div class="nm">'+s.name+'</div><div class="track">'+seg+'</div>'+
         '<div class="nums"><b>'+f(s.current)+'</b>'+extra+
@@ -312,7 +313,7 @@ var DATA = {"asAt": "2026-08-25", "stones": [{"name": "Juperana", "current": 14.
   });
 
   document.addEventListener('change',function(e){
-    if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))){ recompute(); renderUsage(); }
+    if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))){ recompute(); renderUsage(); drawBars(); }
   });
   incT.addEventListener('change',function(){ recompute(); renderUsage(); });
   recompute(); renderUsage();
