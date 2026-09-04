@@ -106,7 +106,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
 
   <div class="card">
     <div class="h"><span>Stock by stone</span>
-      <label class="toggle"><input type="checkbox" id="incT" checked> include in-transit</label></div>
+      <label class="toggle"><input type="checkbox" id="incT" checked autocomplete="off"> include in-transit</label></div>
     <div id="bars"></div>
     <div class="legend">
       <span><span class="dot" style="background:var(--green)"></span>In factory</span>
@@ -152,7 +152,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
       <div class="fld" style="grid-column:1/3"><label>Wastage: <span id="wLbl">30%</span></label>
         <input type="range" id="cW" min="0" max="50" value="30" step="5"></div>
       <div class="fld" style="grid-column:1/3"><label class="toggle" style="font-size:12px">
-        <input type="checkbox" id="cInc"> count in-transit stock as available</label></div>
+        <input type="checkbox" id="cInc" autocomplete="off"> count in-transit stock as available</label></div>
     </div>
     <div class="out ok" id="cOut"></div>
     <div class="note">Gross = Net &divide; (1 &minus; wastage). "Free" = stone in factory (tick in-transit to include it) &minus; what's already committed to quotes and orders. A <b>Tight</b> result means the stone exists but is largely committed — use the Overview scenario to decide priorities.</div>
@@ -171,7 +171,7 @@ td.n{text-align:right;font-variant-numeric:tabular-nums;}
   <p class="foot">Snapshot generated from the master workbook. For a live order/quote to be recorded, send the PDF to Claude in Cowork.</p>
 </div>
 <script>
-var DATA = {"asAt": "2026-08-25", "stones": [{"name": "Juperana", "current": 14.015, "transit": 23.68, "res": [{"ref": "SQ344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}, {"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 8.0543, "exp": "", "po": ""}], "pipe": [{"ref": "SQ347", "proj": "Mooloolaba Foreshore Pavers", "cbm": 21.4429, "po": ""}, {"ref": "SQ356", "proj": "Roma Street Top Up (Brisbane)", "cbm": 2.6, "po": ""}]}, {"name": "Coffee", "current": 2.0001, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 18.1343, "transit": 20.74, "res": [{"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 44.6943, "exp": "", "po": ""}], "pipe": [{"ref": "SQ285", "proj": "Syd Civ Pitt St - Verde Kerbs (Urbanstone)", "cbm": 11.6157, "po": ""}, {"ref": "SQ354", "proj": "Syd Civ Pitt St Leathwood", "cbm": 6.1529, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 0.0, "res": [], "pipe": []}], "transit": [{"block": "AJ1937", "type": "Juperana", "cbm": 8.08, "eta": "2026-08-31"}, {"block": "AJ1948", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AJ1949", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AV205", "type": "Verde", "cbm": 6.4, "eta": "TBC"}, {"block": "AV206", "type": "Verde", "cbm": 7.18, "eta": "TBC"}, {"block": "AV207", "type": "Verde", "cbm": 7.16, "eta": "TBC"}], "finished": [{"date": "2026-08-10", "ref": "SQ270", "stone": "Juperana", "made": 2.4, "used": 3.429}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Juperana", "made": 6.156, "used": 8.794}, {"date": "2026-07-15", "ref": "SQ339", "stone": "Coffee", "made": 3.84, "used": 5.486}, {"date": "2026-07-15", "ref": "SQ339", "stone": "Juperana", "made": 2.88, "used": 4.114}, {"date": "2026-07-24", "ref": "SQ333", "stone": "Verde", "made": 29.106, "used": 34.242}, {"date": "2026-08-05", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 0.58, "used": 0.828}, {"date": "2026-08-17", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 2.76, "used": 2.76}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Desert Brown", "made": 2.851, "used": 5.503}]};
+var DATA = {"asAt": "2026-09-04", "stones": [{"name": "Juperana", "current": 14.015, "transit": 23.68, "res": [{"ref": "SQ344", "proj": "NSW Parliament Gatehouse", "cbm": 7.6071, "exp": "2026-08-23", "po": ""}, {"ref": "SQ349", "proj": "Perth Airport", "cbm": 120.7143, "exp": "2026-08-30", "po": ""}, {"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 8.0543, "exp": "", "po": ""}], "pipe": [{"ref": "SQ347", "proj": "Mooloolaba Foreshore Pavers", "cbm": 21.4429, "po": ""}, {"ref": "SQ356", "proj": "Roma Street Top Up (Brisbane)", "cbm": 2.6, "po": ""}]}, {"name": "Coffee", "current": 2.0001, "transit": 0.0, "res": [], "pipe": []}, {"name": "Verde", "current": 18.1343, "transit": 20.74, "res": [{"ref": "SQ268", "proj": "Perth City Link (Wardang Gardens & Jilli Path)", "cbm": 44.6943, "exp": "", "po": ""}], "pipe": [{"ref": "SQ285", "proj": "Syd Civ Pitt St - Verde Kerbs (Urbanstone)", "cbm": 11.6157, "po": ""}, {"ref": "SQ354", "proj": "Syd Civ Pitt St Leathwood", "cbm": 6.1529, "po": ""}]}, {"name": "Garnett Ice", "current": 2.6862, "transit": 0.0, "res": [], "pipe": []}, {"name": "Desert Brown", "current": 0.0, "transit": 0.0, "res": [], "pipe": []}], "transit": [{"block": "AJ1937", "type": "Juperana", "cbm": 8.08, "eta": "2026-08-31"}, {"block": "AJ1948", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AJ1949", "type": "Juperana", "cbm": 7.8, "eta": "2026-08-31"}, {"block": "AV205", "type": "Verde", "cbm": 6.4, "eta": "TBC"}, {"block": "AV206", "type": "Verde", "cbm": 7.18, "eta": "TBC"}, {"block": "AV207", "type": "Verde", "cbm": 7.16, "eta": "TBC"}], "finished": [{"date": "2026-08-10", "ref": "SQ270", "stone": "Juperana", "made": 2.4, "used": 3.429}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Juperana", "made": 6.156, "used": 8.794}, {"date": "2026-07-15", "ref": "SQ339", "stone": "Coffee", "made": 3.84, "used": 5.486}, {"date": "2026-07-15", "ref": "SQ339", "stone": "Juperana", "made": 2.88, "used": 4.114}, {"date": "2026-07-24", "ref": "SQ333", "stone": "Verde", "made": 29.106, "used": 34.242}, {"date": "2026-08-05", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 0.58, "used": 0.828}, {"date": "2026-08-17", "ref": "SQ330 (Rev 2)", "stone": "Verde", "made": 2.76, "used": 2.76}, {"date": "2026-07-24", "ref": "SQ332", "stone": "Desert Brown", "made": 2.851, "used": 5.503}]};
 (function(){
   var stones = DATA.stones, f=function(n){return (+n).toFixed(3);};
   var resSum=function(s){return s.res.reduce(function(a,r){return a+r.cbm;},0);};
@@ -200,13 +200,14 @@ var DATA = {"asAt": "2026-08-25", "stones": [{"name": "Juperana", "current": 14.
         '<div style="font-size:11px;font-weight:600;color:'+lcol+'">left after orders: '+f(leftO)+'</div></div></div>';
     }).join('');
   }
+  incT.checked = true;  // deterministic default on load (don't rely on browser form restoration)
   incT.addEventListener('change',drawBars); drawBars();
 
   // ---- interactive: tick / untick jobs to test coverage (what-if scenario) ----
   var stoneMap={}; stones.forEach(function(s){stoneMap[s.name]=s;});
   function jobRow(kind,r,st){
     var poTag=r.po?' <span style="color:var(--muted)">· PO '+r.po+'</span>':'';
-    return '<div class="jrow"><label class="jlab"><input type="checkbox" class="'+kind+'chk" '+(kind=='p'?'checked ':'')+
+    return '<div class="jrow"><label class="jlab"><input type="checkbox" autocomplete="off" class="'+kind+'chk" '+(kind=='p'?'checked ':'')+
       'data-stone="'+st+'" data-cbm="'+r.cbm+'" data-ref="'+r.ref+'"><span><b>'+r.ref+'</b> — '+(r.proj||st)+' · '+st+poTag+'</span></label>'+
       '<span class="jright"><span class="jbadge" style="display:none"></span>'+
       '<span class="jcbm">'+f(r.cbm)+' CBM'+(kind=='r'&&r.exp?' · exp '+r.exp:'')+'</span></span></div>';
@@ -316,7 +317,7 @@ var DATA = {"asAt": "2026-08-25", "stones": [{"name": "Juperana", "current": 14.
     if(e.target.classList&&(e.target.classList.contains('pchk')||e.target.classList.contains('rchk'))){ recompute(); renderUsage(); drawBars(); }
   });
   incT.addEventListener('change',function(){ recompute(); renderUsage(); });
-  recompute(); renderUsage();
+  recompute(); renderUsage(); drawBars();  // re-draw bars now that job checkboxes exist (fixes wrong 'left after orders' on load)
 
   var tb=document.getElementById('ttbody');
   tb.innerHTML = DATA.transit.length? DATA.transit.map(function(t){
